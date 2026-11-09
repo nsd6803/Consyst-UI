@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Consyst UI — дизайн-токены
+   Подключите этот файл один раз в корне приложения (например, в main.tsx).
+   Шрифты Rosatom положите в /public/fonts.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Rosatom";
+  src: url("/fonts/Rosatom-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rosatom";
+  src: url("/fonts/Rosatom-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rosatom";
+  src: url("/fonts/Rosatom-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rosatom";
+  src: url("/fonts/Rosatom-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- Fonts ---------- */
+  --font-title: "Rosatom", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---------- Primitives ---------- */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5dc;
+  --color-gray-400: #99a1af;
+  --color-gray-500: #6a7282;
+  --color-gray-600: #4a5565;
+  --color-gray-700: #364153;
+  --color-blue-100: #dbeafe;
+  --color-blue-400: #51a2ff;
+  --color-blue-500: #2b7fff;
+  --color-blue-600: #155dfc;
+  --color-blue-700: #1447e6;
+  --color-violet-500: #8e51ff;
+  --color-red-200: #ffc9c9;
+  --color-red-300: #ffa2a2;
+  --color-red-500: #fb2c36;
+  --color-red-600: #e7000b;
+  --color-red-700: #c10007;
+  --color-orange-200: #ffd6a8;
+  --color-orange-300: #ffb86a;
+  --color-orange-400: #ff8904;
+  --color-orange-700: #ca3500;
+  --color-amber-500: #fd9a00;
+  --color-amber-600: #e17100;
+  --color-amber-700: #bb4d00;
+  --color-yellow-600: #d08700;
+  --color-green-200: #b9f8cf;
+  --color-green-300: #7bf1a8;
+  --color-green-500: #00c951;
+  --color-green-600: #00a63e;
+  --color-green-700: #008236;
+
+  /* ---------- Semantic: accents ---------- */
+  --color-accent-primary: var(--color-blue-600);
+  --color-accent-secondary: var(--color-violet-500);
+  --color-accent-success: var(--color-green-600);
+  --color-accent-warning: var(--color-orange-400);
+  --color-accent-error: var(--color-red-600);
+  --color-accent-info: var(--color-blue-400);
+
+  /* ---------- Semantic: background ---------- */
+  --color-bg-primary: #ffffff;
+  --color-bg-primary-alpha-50: #ffffff80;
+  --color-bg-secondary: #f9fafc;
+  --color-bg-muted: #f1f1f4;
+  --color-bg-neutral: #aaabb9;
+  --color-bg-inverse: #000000;
+  --color-bg-transparent: #ffffff00;
+  --color-bg-primary-subtle: #155dfc26;
+  --color-bg-success-subtle: #00c95126;
+  --color-bg-warning-subtle: #ff890426;
+  --color-bg-error-subtle: #fb2c3626;
+  --color-bg-info-subtle: #2b7fff26;
+  --color-bg-neutral-subtle: rgba(169, 170, 183, 0.2);
+
+  /* ---------- Semantic: text / icon / border ---------- */
+  --color-text-primary: #000000;
+  --color-text-secondary: #aaabb9;
+  --color-text-inverse: #ffffff;
+  --color-icon-secondary: #aaabb9;
+  --color-icon-inverse: #ffffff;
+  --color-border-default: #f1f1f4;
+  --color-border-strong: #e2e8f0;
+  --color-border-emphasis: #aaabb9;
+
+  /* ---------- Spacing ---------- */
+  --gap-0: 0px;
+  --gap-0-5: 2px;
+  --gap-1: 4px;
+  --gap-1-5: 6px;
+  --gap-2: 8px;
+  --gap-3: 12px;
+  --gap-4: 16px;
+  --gap-6: 24px;
+  --gap-8: 32px;
+  --gap-12: 48px;
+
+  /* ---------- Radius ---------- */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-4xl: 32px;
+  --radius-full: 9999px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-none: 0 0 0 0 #000;
+  --shadow-2xs: 0 1px 0 0 #0000000d;
+  --shadow-xs: 0 1px 2px 0 #0000000d;
+  --shadow-sm: 4px 4px 19.6px 0 #00000005, 0 6px 10px 0 #b5c3d21a;
+  --shadow-md: 0 2px 4px -1px #0000000f, 0 4px 6px -1px #0000001a;
+  --shadow-lg: 0 4px 6px -2px #0000000d, 0 10px 15px -3px #0000001a;
+  --shadow-xl: 0 10px 10px -5px #0000000a, 0 20px 25px -5px #0000001a;
+  --shadow-2xl: 0 25px 50px -12px #00000040;
+  --shadow-inner: inset 0 2px 4px 0 #0000000f;
+
+  /* ---------- Opacity ---------- */
+  --opacity-disabled: 0.4;
+}

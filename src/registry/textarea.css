@@ -1,0 +1,19 @@
+.cs-textarea {
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--gap-3) var(--gap-3) var(--gap-1);
+}
+.cs-textarea__control {
+  height: auto;
+  min-height: 63px;
+  resize: vertical;
+}
+.cs-textarea .cs-field__label {
+  top: 22px;
+}
+.cs-textarea__count {
+  align-self: flex-end;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--color-text-secondary);
+}

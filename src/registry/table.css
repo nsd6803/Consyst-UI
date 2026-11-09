@@ -1,0 +1,163 @@
+.cs-table {
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-primary);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+}
+.cs-table__scroll {
+  overflow-x: auto;
+}
+.cs-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 18px;
+}
+.cs-table th {
+  height: 44px;
+  padding: 0 var(--gap-4);
+  border-bottom: 1px solid var(--color-border-default);
+  font-weight: 400;
+  text-align: left;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+.cs-table td {
+  height: 72px;
+  padding: 0 var(--gap-4);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+.cs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.cs-table tbody tr:hover td {
+  background: var(--color-bg-secondary);
+}
+.cs-table__row--selected td,
+.cs-table tbody tr.cs-table__row--selected:hover td {
+  background: #155dfc0d;
+}
+.cs-table__check {
+  width: 20px;
+  padding-right: 0 !important;
+}
+.cs-table__checkbox {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.cs-table__checkbox .cs-checkbox__box > svg {
+  opacity: 0;
+}
+.cs-table__checkbox .cs-checkbox__box[data-checked] > svg,
+.cs-table__checkbox .cs-checkbox__box[data-indeterminate] > svg {
+  opacity: 1;
+}
+.cs-table__sticky {
+  position: sticky;
+  right: 0;
+  background: var(--color-bg-primary);
+  box-shadow: inset 1px 0 0 var(--color-border-default);
+}
+.cs-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.cs-table__sort:hover {
+  color: var(--color-gray-600);
+}
+.cs-table__sort-icon--asc,
+.cs-table__sort-icon--desc {
+  color: var(--color-accent-primary);
+}
+.cs-table__empty {
+  height: 120px;
+  text-align: center;
+  color: var(--color-text-secondary) !important;
+}
+
+/* ---------- Footer ---------- */
+.cs-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-4);
+  flex-wrap: wrap;
+  padding: var(--gap-3) var(--gap-6);
+  border-top: 1px solid var(--color-border-default);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.cs-table__footer-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-4);
+}
+.cs-table__size {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.cs-table__size select {
+  appearance: none;
+  height: 28px;
+  padding: 0 28px 0 var(--gap-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-primary);
+  font: inherit;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.cs-table__size svg {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+
+/* ---------- Pagination ---------- */
+.cs-pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  font-family: var(--font-body);
+}
+.cs-pagination__page {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 var(--gap-2);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted);
+  font: inherit;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+.cs-pagination__page:hover {
+  background: var(--color-gray-200);
+}
+.cs-pagination__page--active,
+.cs-pagination__page--active:hover {
+  background: var(--color-accent-primary);
+  color: var(--color-text-inverse);
+}
+.cs-pagination__ellipsis {
+  min-width: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}

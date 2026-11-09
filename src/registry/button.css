@@ -1,0 +1,160 @@
+.cs-button {
+  --btn-base: var(--color-accent-primary);
+  --btn-hover: var(--color-blue-500);
+  --btn-pressed: var(--color-blue-700);
+  --btn-subtle: var(--color-bg-primary-subtle);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.cs-button:focus-visible {
+  outline: 2px solid var(--color-blue-400);
+  outline-offset: 2px;
+}
+.cs-button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+.cs-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+.cs-button__icon > svg {
+  width: 100%;
+  height: 100%;
+}
+.cs-button--full {
+  width: 100%;
+}
+
+/* ---------- Colors ---------- */
+.cs-button--neutral {
+  --btn-base: var(--color-bg-neutral);
+  --btn-hover: var(--color-gray-400);
+  --btn-pressed: var(--color-gray-500);
+  --btn-subtle: var(--color-bg-neutral-subtle);
+}
+.cs-button--error {
+  --btn-base: var(--color-accent-error);
+  --btn-hover: var(--color-red-500);
+  --btn-pressed: var(--color-red-700);
+  --btn-subtle: var(--color-bg-error-subtle);
+}
+.cs-button--warning {
+  --btn-base: var(--color-accent-warning);
+  --btn-hover: var(--color-amber-500);
+  --btn-pressed: var(--color-amber-600);
+  --btn-subtle: var(--color-bg-warning-subtle);
+}
+.cs-button--success {
+  --btn-base: var(--color-accent-success);
+  --btn-hover: var(--color-green-500);
+  --btn-pressed: var(--color-green-700);
+  --btn-subtle: var(--color-bg-success-subtle);
+}
+
+/* ---------- Variants ---------- */
+.cs-button--fill {
+  background: var(--btn-base);
+  color: var(--color-text-inverse);
+}
+.cs-button--fill:not(:disabled):hover {
+  background: var(--btn-hover);
+}
+.cs-button--fill:not(:disabled):active {
+  background: var(--btn-pressed);
+}
+
+.cs-button--secondary {
+  background: var(--btn-subtle);
+  color: var(--btn-base);
+}
+.cs-button--secondary:not(:disabled):hover {
+  filter: saturate(1.4) brightness(0.97);
+}
+.cs-button--secondary:not(:disabled):active {
+  color: var(--btn-pressed);
+  filter: saturate(1.8) brightness(0.92);
+}
+
+.cs-button--ghost {
+  background: transparent;
+  border-color: var(--btn-base);
+  color: var(--btn-base);
+}
+.cs-button--ghost:not(:disabled):hover {
+  background: var(--btn-subtle);
+}
+.cs-button--ghost:not(:disabled):active {
+  border-color: var(--btn-pressed);
+  color: var(--btn-pressed);
+}
+
+.cs-button--text {
+  background: transparent;
+  color: var(--btn-base);
+}
+.cs-button--text:not(:disabled):hover {
+  color: var(--btn-hover);
+}
+.cs-button--text:not(:disabled):active {
+  color: var(--btn-pressed);
+}
+.cs-button--neutral.cs-button--secondary,
+.cs-button--neutral.cs-button--ghost,
+.cs-button--neutral.cs-button--text {
+  color: var(--color-gray-600);
+}
+
+/* ---------- Sizes ---------- */
+.cs-button--large {
+  gap: var(--gap-4);
+  padding: var(--gap-4) var(--gap-6);
+  font-size: 18px;
+  line-height: 28px;
+}
+.cs-button--medium {
+  gap: var(--gap-3);
+  padding: var(--gap-3) var(--gap-4);
+  font-size: 16px;
+  line-height: 24px;
+}
+.cs-button--small {
+  gap: var(--gap-2);
+  padding: var(--gap-2) var(--gap-3);
+  font-size: 14px;
+  line-height: 21px;
+}
+.cs-button--tiny {
+  gap: var(--gap-1);
+  padding: var(--gap-1) var(--gap-3);
+  font-size: 12px;
+  line-height: 18px;
+}
+.cs-button--text {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ---------- Icon only ---------- */
+.cs-button--icon-only {
+  padding: 0;
+}
+.cs-button--icon-only.cs-button--large { width: 48px; height: 48px; }
+.cs-button--icon-only.cs-button--medium { width: 40px; height: 40px; }
+.cs-button--icon-only.cs-button--small { width: 32px; height: 32px; }
+.cs-button--icon-only.cs-button--tiny { width: 28px; height: 28px; }
+.cs-button--tiny .cs-button__icon { width: 12px; height: 12px; }

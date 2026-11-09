@@ -1,0 +1,104 @@
+.cs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-6);
+  height: 64px;
+  padding: 0 var(--gap-6);
+  background: var(--color-bg-primary);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-body);
+}
+.cs-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  color: var(--color-accent-primary);
+  text-decoration: none;
+}
+.cs-header__logo {
+  display: inline-flex;
+}
+.cs-header__name {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.cs-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-4);
+}
+.cs-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-4);
+  padding-right: var(--gap-4);
+  border-right: 1px solid var(--color-border-default);
+}
+.cs-header__icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: none;
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+}
+.cs-header__icon-btn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-gray-600);
+}
+.cs-header__badge {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-error);
+}
+.cs-header__link {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-accent-primary);
+  cursor: pointer;
+}
+.cs-header__link:hover {
+  color: var(--color-blue-500);
+}
+.cs-header__user {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+}
+.cs-header__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+.cs-header__avatar--initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-blue-100);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-accent-primary);
+}

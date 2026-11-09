@@ -1,0 +1,56 @@
+.cs-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.cs-checkbox--disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+.cs-checkbox__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+.cs-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1.25px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-primary);
+  color: var(--color-icon-inverse);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.cs-checkbox__box > svg {
+  opacity: 0;
+}
+.cs-checkbox__input:checked + .cs-checkbox__box,
+.cs-checkbox__box[data-indeterminate],
+.cs-checkbox__box[data-checked] {
+  background: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+}
+.cs-checkbox__input:checked + .cs-checkbox__box > svg,
+.cs-checkbox__box[data-indeterminate] > svg,
+.cs-checkbox__box[data-checked] > svg {
+  opacity: 1;
+}
+.cs-checkbox:not(.cs-checkbox--disabled):hover .cs-checkbox__box {
+  border-color: var(--color-accent-primary);
+}
+.cs-checkbox__input:focus-visible + .cs-checkbox__box {
+  outline: 2px solid var(--color-blue-400);
+  outline-offset: 2px;
+}

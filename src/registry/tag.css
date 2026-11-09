@@ -1,0 +1,42 @@
+.cs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-0-5);
+  padding: var(--gap-1) var(--gap-2);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-neutral-subtle);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+.cs-tag--active {
+  background: var(--color-accent-primary);
+  color: var(--color-text-inverse);
+}
+.cs-tag--inactive {
+  color: var(--color-text-secondary);
+}
+.cs-tag__actions {
+  display: none;
+  align-items: center;
+}
+.cs-tag--editable:hover .cs-tag__actions,
+.cs-tag--editable:focus-within .cs-tag__actions {
+  display: inline-flex;
+}
+.cs-tag__action {
+  display: inline-flex;
+  padding: var(--gap-1);
+  border: none;
+  background: none;
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+}
+.cs-tag--active .cs-tag__action {
+  color: var(--color-icon-inverse);
+}
+.cs-tag__action:hover {
+  opacity: 0.7;
+}

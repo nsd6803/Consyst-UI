@@ -1,0 +1,111 @@
+/* Общие стили полей ввода: используются Input, Textarea и Search */
+.cs-field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-1);
+  width: 100%;
+  font-family: var(--font-body);
+}
+.cs-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  min-height: 40px;
+  padding: 0 var(--gap-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-primary);
+  transition: border-color 0.15s ease;
+}
+.cs-field:hover {
+  border-color: var(--color-gray-200);
+}
+.cs-field:focus-within {
+  border-color: var(--color-gray-300);
+}
+.cs-field__control {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-text-primary);
+}
+.cs-field__control::placeholder {
+  color: var(--color-text-secondary);
+}
+.cs-field__label {
+  position: absolute;
+  left: var(--gap-3);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 var(--gap-1);
+  margin-left: calc(var(--gap-1) * -1);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-primary);
+  pointer-events: none;
+  transition: top 0.15s ease, font-size 0.15s ease, line-height 0.15s ease;
+}
+.cs-field:focus-within .cs-field__label,
+.cs-field--filled .cs-field__label,
+.cs-field__control:not(:placeholder-shown) + .cs-field__label {
+  top: 0;
+  font-size: 10px;
+  line-height: 14px;
+}
+.cs-field__icon,
+.cs-field__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-icon-secondary);
+}
+.cs-field__clear {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.cs-field__clear:hover {
+  color: var(--color-gray-600);
+}
+.cs-field__error {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-accent-error);
+}
+
+/* Ошибка */
+.cs-field--error,
+.cs-field--error:hover,
+.cs-field--error:focus-within {
+  border-color: var(--color-accent-error);
+}
+.cs-field--error .cs-field__label {
+  color: var(--color-accent-error);
+}
+
+/* Disabled */
+.cs-field--disabled {
+  background: var(--color-bg-muted);
+  border-color: var(--color-bg-muted);
+}
+.cs-field--disabled .cs-field__label {
+  background: transparent;
+}
+.cs-field--disabled .cs-field__control {
+  cursor: not-allowed;
+}
+.cs-field--disabled:hover {
+  border-color: var(--color-bg-muted);
+}

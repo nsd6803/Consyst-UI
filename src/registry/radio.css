@@ -1,0 +1,66 @@
+.cs-radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.cs-radio--disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+.cs-radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+.cs-radio__circle {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 1.25px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-primary);
+  transition: border-color 0.15s ease;
+}
+.cs-radio__circle::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-primary);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+.cs-radio__input:checked + .cs-radio__circle {
+  border: 1.5px solid var(--color-accent-primary);
+}
+.cs-radio__input:checked + .cs-radio__circle::after {
+  transform: scale(1);
+}
+.cs-radio:not(.cs-radio--disabled):hover .cs-radio__circle {
+  border-color: var(--color-accent-primary);
+}
+.cs-radio__input:focus-visible + .cs-radio__circle {
+  outline: 2px solid var(--color-blue-400);
+  outline-offset: 2px;
+}
+.cs-radio-group {
+  display: flex;
+  gap: var(--gap-3);
+}
+.cs-radio-group--vertical {
+  flex-direction: column;
+}
+.cs-radio-group--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--gap-6);
+}
