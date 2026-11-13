@@ -1,20 +1,17 @@
-import { useState } from "react";
 import { Tabs } from "@/components/ui/tabs";
 
-const items = [
-  { value: "all", label: "Все" },
-  { value: "active", label: "Активные" },
-  { value: "review", label: "На согласовании" },
-  { value: "done", label: "Завершённые" },
-  { value: "archive", label: "Архив", disabled: true },
-];
-
 export default function TabsDemo() {
-  const [tab, setTab] = useState("all");
   return (
-    <div style={{ display: "grid", gap: 16 }}>
-      <Tabs items={items} value={tab} onChange={setTab} />
-      <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)" }}>Выбрана вкладка: {tab}</p>
+    <div style={{ width: "100%", maxWidth: 560 }}>
+      <Tabs
+        aria-label="Практиканты"
+        items={[
+          { value: "all", label: "Все", count: 27, content: <p style={{ margin: 0, fontSize: 14 }}>Все практиканты</p> },
+          { value: "active", label: "Активные", count: 12, content: <p style={{ margin: 0, fontSize: 14 }}>Проходят практику</p> },
+          { value: "review", label: "На согласовании", count: 4, content: <p style={{ margin: 0, fontSize: 14 }}>Ждут решения</p> },
+          { value: "archive", label: "Архив", disabled: true },
+        ]}
+      />
     </div>
   );
 }

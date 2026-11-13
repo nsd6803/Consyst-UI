@@ -1,83 +1,82 @@
 import * as React from "react";
-import { createPortal } from "react-dom";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { IconX } from "./icons";
+import { cn } from "./utils";
 import "./modal.css";
 
 export interface ModalProps {
   open: boolean;
-  onClose: () => void;
-  title?: React.ReactNode;
+  onOpenChange: (open: boolean) => void;
+  title: React.ReactNode;
+  /** Пояснение под заголовком (читается скринридером как описание окна) */
+  description?: React.ReactNode;
   children?: React.ReactNode;
-  /** Кнопки внизу окна */
+  /** Кнопки внизу. Главное действие — справа */
   footer?: React.ReactNode;
-  /** Показывать крестик в правом верхнем углу */
+  /** sm 400 · md 520 · lg 720 · xl 960 */
+  size?: "sm" | "md" | "lg" | "xl";
+  /** Крестик в углу */
   closable?: boolean;
-  /** Закрывать по клику на фон */
-  closeOnOverlay?: boolean;
-  width?: number | string;
+  /** Запретить закрытие кликом по фону (для форм с несохранёнными данными) */
+  dismissible?: boolean;
+  /** Кнопка, открывающая модалку (необязательно — можно управлять через open) */
+  trigger?: React.ReactNode;
   className?: string;
 }
 
+/**
+ * Модальное окно на Radix Dialog: фокус-ловушка, возврат фокуса, Esc,
+ * блокировка прокрутки страницы, aria-labelledby/aria-describedby.
+ */
 export function Modal({
   open,
-  onClose,
+  onOpenChange,
   title,
+  description,
   children,
   footer,
+  size = "md",
   closable = true,
-  closeOnOverlay = true,
-  width = 500,
+  dismissible = true,
+  trigger,
   className,
 }: ModalProps) {
-  const titleId = React.useId();
-
-  React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  return createPortal(
-    <div className="cs-modal-overlay" onMouseDown={(e) => closeOnOverlay && e.target === e.currentTarget && onClose()}>
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        className={["cs-modal", className].filter(Boolean).join(" ")}
-        style={{ width }}
-      >
-        {closable && (
-          <button type="button" className="cs-modal__close" onClick={onClose} aria-label="Закрыть">
-            <IconX size={18} />
-          </button>
-        )}
-        {title && (
-          <h2 id={titleId} className="cs-modal__title">
-            {title}
-          </h2>
-        )}
-        {children && <div className="cs-modal__body">{children}</div>}
-        {footer && <div className="cs-modal__footer">{footer}</div>}
-      </div>
-    </div>,
-    document.body,
+  return (
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+      {trigger && <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>}
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="cs-modal-overlay" />
+        <DialogPrimitive.Content
+          className={cn("cs-modal", `cs-modal--${size}`, className)}
+          onPointerDownOutside={(e) => !dismissible && e.preventDefault()}
+          {...(!description && { "aria-describedby": undefined })}
+        >
+          <div className="cs-modal__header">
+            <DialogPrimitive.Title className="cs-modal__title">{title}</DialogPrimitive.Title>
+            {description && <DialogPrimitive.Description className="cs-modal__description">{description}</DialogPrimitive.Description>}
+          </div>
+          {children && <div className="cs-modal__body">{children}</div>}
+          {footer && <div className="cs-modal__footer">{footer}</div>}
+          {closable && (
+            <DialogPrimitive.Close className="cs-modal__close" aria-label="Закрыть">
+              <IconX />
+            </DialogPrimitive.Close>
+          )}
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }
+
+/** Кнопка, закрывающая модалку (оберните свою кнопку: <ModalClose asChild><Button/></ModalClose>) */
+export const ModalClose = DialogPrimitive.Close;
 
 /** Точки-индикатор шагов для пошаговых модалок (онбординг) */
 export function ModalSteps({ count, current }: { count: number; current: number }) {
   return (
-    <div className="cs-modal-steps">
+    <div className="cs-modal-steps" role="img" aria-label={`Шаг ${current + 1} из ${count}`}>
       {Array.from({ length: count }, (_, i) => (
-        <span key={i} className={i === current ? "cs-modal-steps__dot cs-modal-steps__dot--active" : "cs-modal-steps__dot"} />
+        <span key={i} className={cn("cs-modal-steps__dot", i === current && "cs-modal-steps__dot--active")} />
       ))}
     </div>
   );

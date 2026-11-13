@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Highlight, Prism, type PrismTheme } from "prism-react-renderer";
-import { IconCheck } from "@/components/ui/icons";
+import { IconCheck, IconCopy } from "@/components/ui/icons";
 
 // В prism-react-renderer нет CSS-грамматики — добавляем минимальную.
 const P = Prism as unknown as { languages: Record<string, unknown> };
@@ -18,16 +18,16 @@ P.languages.css = {
 };
 
 const theme: PrismTheme = {
-  plain: { color: "#1f2937", backgroundColor: "transparent" },
+  plain: { color: "var(--color-fg)", backgroundColor: "transparent" },
   styles: [
-    { types: ["comment"], style: { color: "#99a1af", fontStyle: "italic" } },
-    { types: ["keyword", "atrule", "important"], style: { color: "#8e51ff" } },
-    { types: ["string", "attr-value"], style: { color: "#00a63e" } },
-    { types: ["tag", "selector", "class-name"], style: { color: "#155dfc" } },
-    { types: ["function", "maybe-class-name"], style: { color: "#1447e6" } },
-    { types: ["attr-name", "property"], style: { color: "#bb4d00" } },
-    { types: ["number", "boolean", "constant", "hexcolor"], style: { color: "#c10007" } },
-    { types: ["punctuation", "operator"], style: { color: "#6a7282" } },
+    { types: ["comment"], style: { color: "var(--color-fg-tertiary)", fontStyle: "italic" } },
+    { types: ["keyword", "atrule", "important"], style: { color: "var(--color-accent-subtle-fg)" } },
+    { types: ["string", "attr-value"], style: { color: "var(--color-success-subtle-fg)" } },
+    { types: ["tag", "selector", "class-name"], style: { color: "var(--color-primary-subtle-fg)" } },
+    { types: ["function", "maybe-class-name"], style: { color: "var(--color-info-subtle-fg)" } },
+    { types: ["attr-name", "property"], style: { color: "var(--color-warning-subtle-fg)" } },
+    { types: ["number", "boolean", "constant", "hexcolor"], style: { color: "var(--color-danger-subtle-fg)" } },
+    { types: ["punctuation", "operator"], style: { color: "var(--color-fg-secondary)" } },
   ],
 };
 
@@ -49,21 +49,13 @@ export function CopyButton({ text, label, className }: { text: string; label?: s
   };
   return (
     <button type="button" className={["docs-copy", copied && "docs-copy--done", className].filter(Boolean).join(" ")} onClick={copy}>
-      {copied ? <IconCheck size={14} strokeWidth={2.5} /> : <CopyIcon />}
+      {copied ? <IconCheck size={12} /> : <IconCopy size={12} />}
       {label && <span>{copied ? "Скопировано" : label}</span>}
       {!label && <span className="docs-sr">{copied ? "Скопировано" : "Копировать"}</span>}
     </button>
   );
 }
 
-function CopyIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="14" height="14" x="8" y="8" rx="2" />
-      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-    </svg>
-  );
-}
 
 export function CodeBlock({
   code,

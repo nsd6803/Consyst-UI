@@ -1,0 +1,32 @@
+.cs-select__trigger {
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+}
+.cs-select__trigger:focus-visible {
+  outline: none;
+  background: var(--color-control-active);
+  box-shadow: 0 0 0 1.5px var(--color-primary);
+}
+.cs-select__trigger[data-disabled] {
+  cursor: not-allowed;
+}
+.cs-select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cs-select__trigger[data-placeholder] .cs-select__value {
+  color: var(--color-fg-tertiary);
+}
+.cs-select__chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--color-fg-tertiary);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+.cs-select__trigger[data-state="open"] .cs-select__chevron {
+  transform: rotate(180deg);
+}

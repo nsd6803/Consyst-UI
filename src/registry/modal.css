@@ -1,86 +1,121 @@
 .cs-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--gap-4);
-  background: rgba(0, 0, 0, 0.32);
-  animation: cs-modal-fade 0.15s ease-out;
+  z-index: var(--z-overlay);
+  background: var(--color-overlay);
+  animation: cs-modal-fade var(--duration-base) var(--ease-out);
 }
 .cs-modal {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: var(--z-modal);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-3);
-  max-width: 100%;
-  max-height: calc(100vh - 32px);
-  overflow-y: auto;
-  padding: var(--gap-6);
-  border: 1px solid var(--color-border-default);
+  width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
   border-radius: var(--radius-2xl);
-  background: var(--color-bg-primary);
-  box-shadow: var(--shadow-sm);
-  font-family: var(--font-body);
-  animation: cs-modal-in 0.18s ease-out;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-dialog);
+  font-family: var(--font-sans);
+  color: var(--color-fg);
+  transform: translate(-50%, -50%);
+  animation: cs-modal-in var(--duration-slow) var(--ease-out);
 }
-.cs-modal__close {
-  position: absolute;
-  top: var(--gap-6);
-  right: var(--gap-6);
-  display: inline-flex;
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--color-icon-secondary);
-  cursor: pointer;
+.cs-modal:focus {
+  outline: none;
 }
-.cs-modal__close:hover {
-  color: var(--color-gray-600);
+.cs-modal--sm { max-width: 400px; }
+.cs-modal--md { max-width: 520px; }
+.cs-modal--lg { max-width: 720px; }
+.cs-modal--xl { max-width: 960px; }
+
+.cs-modal__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: var(--space-6) var(--space-12) 0 var(--space-6);
 }
 .cs-modal__title {
   margin: 0;
-  padding-right: var(--gap-8);
-  font-family: var(--font-title);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-2xl);
+}
+.cs-modal__description {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-fg-secondary);
 }
 .cs-modal__body {
-  font-size: 14px;
-  line-height: 21px;
-  color: var(--color-text-primary);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-6) 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
 }
 .cs-modal__footer {
   display: flex;
-  align-items: center;
-  gap: var(--gap-2);
-  margin-top: var(--gap-3);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-6);
 }
-.cs-modal__footer > * {
-  flex: 1;
+.cs-modal__body:last-child,
+.cs-modal__header:last-child {
+  padding-bottom: var(--space-6);
+}
+.cs-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: none;
+  color: var(--color-fg-tertiary);
+  cursor: pointer;
+}
+.cs-modal__close:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-fg);
+}
+.cs-modal__close:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 .cs-modal-steps {
   display: flex;
   justify-content: center;
-  gap: var(--gap-1);
+  gap: var(--space-1-5);
 }
 .cs-modal-steps__dot {
   width: 6px;
   height: 6px;
   border-radius: var(--radius-full);
-  background: var(--color-gray-300);
+  background: var(--color-border-hover);
+  transition: width var(--duration-base) var(--ease-out), background-color var(--duration-base);
 }
 .cs-modal-steps__dot--active {
-  background: var(--color-accent-primary);
+  width: 18px;
+  background: var(--color-primary);
 }
 @keyframes cs-modal-fade {
   from { opacity: 0; }
-  to { opacity: 1; }
 }
 @keyframes cs-modal-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.98); }
+}
+@media (max-width: 640px) {
+  .cs-modal__footer > * {
+    flex: 1;
+  }
 }

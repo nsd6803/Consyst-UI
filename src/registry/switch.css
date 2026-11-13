@@ -1,0 +1,61 @@
+.cs-switch {
+  --switch-w: 36px;
+  --switch-h: 20px;
+  --switch-thumb: 16px;
+
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: var(--switch-w);
+  height: var(--switch-h);
+  padding: 2px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-border-hover);
+  cursor: pointer;
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+.cs-switch--sm {
+  --switch-w: 28px;
+  --switch-h: 16px;
+  --switch-thumb: 12px;
+}
+.cs-switch:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.cs-switch[data-state="checked"] {
+  background: var(--color-primary);
+}
+.cs-switch:disabled {
+  background: var(--color-bg-disabled);
+  cursor: not-allowed;
+}
+.cs-switch__thumb {
+  display: block;
+  width: var(--switch-thumb);
+  height: var(--switch-thumb);
+  border-radius: var(--radius-full);
+  background: var(--color-primary-fg);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.cs-switch[data-state="checked"] .cs-switch__thumb {
+  transform: translateX(calc(var(--switch-w) - var(--switch-thumb) - 4px));
+}
+.cs-switch:disabled .cs-switch__thumb {
+  background: var(--color-fg-disabled);
+  box-shadow: none;
+}
+.cs-switch-field {
+  align-items: flex-start;
+}
+.cs-switch-field > .cs-switch {
+  margin-top: 0;
+}
+.cs-switch-field--left {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+}

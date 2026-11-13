@@ -4,3 +4,4 @@ dist
 .DS_Store
 ._*
 .claude/settings.local.json
+public/fonts/fa-*.otf

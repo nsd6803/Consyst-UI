@@ -69,15 +69,18 @@ export function TimelineStep({
         <ProgressStep number={number} status={status} active={selected} />
         {connector && <span className={`cs-timeline-step__line cs-timeline-step__line--${status}`} />}
       </div>
-      <div className="cs-timeline-step__caption">{caption ?? `Этап ${number}`}</div>
-      <div className="cs-timeline-step__title">{title}</div>
-      {dates && <div className="cs-timeline-step__dates">{dates}</div>}
+      <div className="cs-timeline-step__labels">
+        <span className="cs-timeline-step__caption">{caption ?? `Этап ${number}`}</span>
+        <span className="cs-timeline-step__title">{title}</span>
+        {dates && <span className="cs-timeline-step__dates">{dates}</span>}
+      </div>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Timeline — карточка с этапами, растянутыми по ширине                */
+/* Timeline — карточка с этапами. Этапы делят ширину поровну,          */
+/* последний занимает ровно свою ширину (как в Figma)                  */
 /* ------------------------------------------------------------------ */
 
 export interface TimelineProps {
@@ -86,13 +89,14 @@ export interface TimelineProps {
   current: number;
   selected?: number;
   onSelect?: (index: number) => void;
-  bordered?: boolean;
+  /** Белая карточка с тенью (padding 28, radius 24). false — без подложки */
+  card?: boolean;
   className?: string;
 }
 
-export function Timeline({ steps, current, selected, onSelect, bordered = true, className }: TimelineProps) {
+export function Timeline({ steps, current, selected, onSelect, card = true, className }: TimelineProps) {
   return (
-    <div className={["cs-timeline", bordered && "cs-timeline--bordered", className].filter(Boolean).join(" ")}>
+    <div className={["cs-timeline", card && "cs-timeline--card", className].filter(Boolean).join(" ")}>
       {steps.map((s, i) => (
         <TimelineStep
           key={i}

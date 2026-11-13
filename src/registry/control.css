@@ -1,0 +1,236 @@
+/* Общая оболочка контролов: Input, Textarea, Search, Select, MultiSelect.
+   Одинаковые высоты, отступы, рамки и состояния во всех полях. */
+.cs-control {
+  --control-height: var(--control-height-md);
+  --control-padding: var(--space-3);
+  --control-font-size: var(--text-sm);
+  --control-line-height: var(--leading-sm);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 0;
+  min-height: var(--control-height);
+  padding: 0 var(--control-padding);
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--control-bg, var(--color-control));
+  font-family: var(--font-sans);
+  font-size: var(--control-font-size);
+  line-height: var(--control-line-height);
+  color: var(--color-fg);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+.cs-control--sm {
+  --control-height: var(--control-height-sm);
+  --control-padding: 10px;
+}
+.cs-control--lg {
+  --control-height: var(--control-height-lg);
+  --control-padding: var(--space-4);
+  --control-font-size: var(--text-md);
+  --control-line-height: var(--leading-md);
+}
+.cs-control:hover {
+  background: var(--control-bg-hover, var(--color-control-hover));
+}
+.cs-control:focus-within,
+.cs-control[data-state="open"] {
+  background: var(--color-control-active);
+  box-shadow: 0 0 0 1.5px var(--color-primary);
+}
+.cs-control[data-invalid] {
+  background: var(--color-danger-subtle);
+}
+.cs-control[data-invalid]:focus-within {
+  background: var(--color-control-active);
+  box-shadow: 0 0 0 1.5px var(--color-danger);
+}
+.cs-control[data-disabled] {
+  background: var(--color-bg-disabled);
+  color: var(--color-fg-disabled);
+  cursor: not-allowed;
+}
+
+/* Нативное поле внутри оболочки */
+.cs-control__input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: calc(var(--control-height) - 2px);
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
+.cs-control__input::placeholder {
+  color: var(--color-fg-tertiary);
+}
+.cs-control__input:disabled {
+  cursor: not-allowed;
+}
+.cs-control__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Обёртка поля ввода + подписи */
+.cs-control__float {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: stretch;
+  min-width: 0;
+}
+
+/* ---------- Плавающая подпись ----------
+   Подпись стоит в поле как плейсхолдер. При фокусе, открытии или вводе
+   она уменьшается и уезжает наверх, освобождая место под значение. */
+.cs-control--floating {
+  --control-height: var(--control-height-lg);
+  --control-float-top: 7px;
+  --control-value-pt: 21px;
+  --control-value-pb: 7px;
+}
+.cs-control--floating.cs-control--lg {
+  --control-height: 56px;
+  --control-float-top: 9px;
+  --control-value-pt: 25px;
+  --control-value-pb: 9px;
+}
+.cs-control__label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: var(--control-font-size);
+  line-height: var(--control-line-height);
+  color: var(--color-fg-tertiary);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transform-origin: left top;
+  transition:
+    top var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard),
+    font-size var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+.cs-control__label .cs-label__required {
+  margin-left: 2px;
+}
+.cs-control--floating:focus-within .cs-control__label,
+.cs-control--floating[data-filled] .cs-control__label,
+.cs-control--floating[data-state="open"] .cs-control__label,
+.cs-control--floating.cs-select__trigger:not([data-placeholder]) .cs-control__label {
+  top: var(--control-float-top);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: var(--color-fg-secondary);
+  transform: none;
+}
+.cs-control--floating:focus-within .cs-control__label {
+  color: var(--color-primary-subtle-fg);
+}
+.cs-control--floating[data-invalid] .cs-control__label {
+  color: var(--color-fg-danger);
+}
+.cs-control--floating[data-disabled] .cs-control__label {
+  color: var(--color-fg-disabled);
+}
+/* Значение прижато книзу под подписью */
+.cs-control--floating .cs-control__input,
+.cs-control--floating .cs-select__value {
+  box-sizing: border-box;
+  align-self: stretch;
+  height: var(--control-height);
+  padding-top: var(--control-value-pt);
+  padding-bottom: var(--control-value-pb);
+}
+.cs-control--floating .cs-select__value {
+  display: block;
+  height: auto;
+}
+/* Плейсхолдер появляется только когда подпись уехала наверх */
+.cs-control--floating .cs-control__input::placeholder {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+.cs-control--floating .cs-control__input:focus::placeholder {
+  opacity: 1;
+}
+.cs-control--floating.cs-select__trigger[data-placeholder]:not([data-state="open"]) .cs-select__value {
+  opacity: 0;
+}
+/* Textarea: подпись в первой строке, а не по центру */
+.cs-textarea.cs-control--floating {
+  padding-top: 0;
+}
+.cs-textarea.cs-control--floating .cs-control__float {
+  align-items: stretch;
+}
+.cs-textarea.cs-control--floating .cs-control__label {
+  top: var(--space-3);
+  transform: none;
+}
+.cs-textarea.cs-control--floating:focus-within .cs-control__label,
+.cs-textarea.cs-control--floating[data-filled] .cs-control__label {
+  top: var(--control-float-top);
+}
+.cs-textarea.cs-control--floating .cs-control__input {
+  height: auto;
+  padding-top: 26px;
+  padding-bottom: 0;
+}
+
+/* Иконки и кнопки внутри */
+.cs-control__affix {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  color: var(--color-fg-tertiary);
+}
+.cs-control__affix > .cs-icon {
+  font-size: var(--icon-size-md);
+}
+.cs-control__action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: -4px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-fg-tertiary);
+  cursor: pointer;
+}
+.cs-control__action:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-fg);
+}
+.cs-control__action:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Поля на заливке bg-subtle (карточка filled, сайдбар, панели) становятся
+   белыми, иначе они сливаются с фоном. Класс можно повесить на любой
+   контейнер с фоном bg-subtle. */
+.cs-on-subtle,
+.cs-card--filled,
+.cs-sidebar {
+  --control-bg: var(--color-control-on-subtle);
+  --control-bg-hover: var(--color-control-on-subtle-hover);
+}

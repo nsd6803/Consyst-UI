@@ -1,37 +1,56 @@
 import * as React from "react";
-import { IconPen, IconTrash } from "./icons";
+import { IconX } from "./icons";
+import { cn } from "./utils";
 import "./tag.css";
 
-export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  /** default — обычный, active — выбранный, inactive — недоступный */
-  state?: "default" | "active" | "inactive";
-  /** Если передан — при наведении появляется кнопка редактирования */
-  onEdit?: () => void;
-  /** Если передан — при наведении появляется кнопка удаления */
+export interface TagProps extends Omit<React.HTMLAttributes<HTMLElement>, "onClick"> {
+  /** Выбранный тег (фильтр, навык) */
+  selected?: boolean;
+  disabled?: boolean;
+  /** Делает тег кнопкой-переключателем */
+  onClick?: () => void;
+  /** Показывает крестик удаления */
   onRemove?: () => void;
+  icon?: React.ReactNode;
+  size?: "sm" | "md";
 }
 
-export function Tag({ state = "default", onEdit, onRemove, className, children, ...props }: TagProps) {
-  const editable = !!(onEdit || onRemove);
-  return (
-    <span
-      className={["cs-tag", `cs-tag--${state}`, editable && "cs-tag--editable", className].filter(Boolean).join(" ")}
-      {...props}
-    >
+/** Метка: навык, фильтр, выбранное значение. Может быть выбираемой и удаляемой */
+export function Tag({ selected = false, disabled, onClick, onRemove, icon, size = "md", className, children, ...props }: TagProps) {
+  const classes = cn(
+    "cs-tag",
+    `cs-tag--${size}`,
+    selected && "cs-tag--selected",
+    onClick && "cs-tag--interactive",
+    disabled && "cs-tag--disabled",
+    className,
+  );
+  const content = (
+    <>
+      {icon && <span className="cs-tag__icon">{icon}</span>}
       <span className="cs-tag__text">{children}</span>
-      {editable && (
-        <span className="cs-tag__actions">
-          {onEdit && (
-            <button type="button" className="cs-tag__action" onClick={onEdit} aria-label="Редактировать">
-              <IconPen size={10} />
-            </button>
-          )}
-          {onRemove && (
-            <button type="button" className="cs-tag__action" onClick={onRemove} aria-label="Удалить">
-              <IconTrash size={10} />
-            </button>
-          )}
-        </span>
+    </>
+  );
+
+  return (
+    <span className={classes} {...props}>
+      {onClick ? (
+        <button type="button" className="cs-tag__main" aria-pressed={selected} disabled={disabled} onClick={onClick}>
+          {content}
+        </button>
+      ) : (
+        <span className="cs-tag__main">{content}</span>
+      )}
+      {onRemove && (
+        <button
+          type="button"
+          className="cs-tag__remove"
+          onClick={onRemove}
+          disabled={disabled}
+          aria-label={`Удалить ${typeof children === "string" ? children : ""}`.trim()}
+        >
+          <IconX size={10} />
+        </button>
       )}
     </span>
   );

@@ -1,0 +1,73 @@
+.cs-alert {
+  --alert-bg: var(--color-info-subtle);
+  --alert-fg: var(--color-info-subtle-fg);
+  --alert-border: var(--color-info-border);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--alert-bg);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-fg);
+}
+.cs-alert--success { --alert-bg: var(--color-success-subtle); --alert-fg: var(--color-success-subtle-fg); --alert-border: var(--color-success-border); }
+.cs-alert--warning { --alert-bg: var(--color-warning-subtle); --alert-fg: var(--color-warning-subtle-fg); --alert-border: var(--color-warning-border); }
+.cs-alert--danger  { --alert-bg: var(--color-danger-subtle);  --alert-fg: var(--color-danger-subtle-fg);  --alert-border: var(--color-danger-border); }
+
+.cs-alert__icon {
+  display: inline-flex;
+  height: var(--leading-sm);
+  align-items: center;
+  color: var(--alert-fg);
+}
+.cs-alert__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  min-width: 0;
+}
+.cs-alert__title {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--alert-fg);
+}
+.cs-alert__text {
+  color: var(--color-fg-secondary);
+}
+.cs-alert__title + .cs-alert__text {
+  color: var(--color-fg-secondary);
+}
+.cs-alert__body:not(:has(.cs-alert__title)) .cs-alert__text {
+  color: var(--alert-fg);
+}
+.cs-alert__action {
+  flex-shrink: 0;
+  align-self: center;
+}
+.cs-alert__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin: -2px -6px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--alert-fg);
+  cursor: pointer;
+}
+.cs-alert__close:hover {
+  background: color-mix(in srgb, var(--alert-fg) 10%, transparent);
+}
+.cs-alert__close:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

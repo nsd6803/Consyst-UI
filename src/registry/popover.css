@@ -1,0 +1,25 @@
+.cs-popover {
+  z-index: var(--z-popover);
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  padding: var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-popover);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--color-fg);
+  transform-origin: var(--radix-popover-content-transform-origin);
+  animation: cs-popover-in var(--duration-base) var(--ease-out);
+}
+.cs-popover:focus {
+  outline: none;
+}
+.cs-popover__title {
+  margin: 0 0 var(--space-3);
+  font-weight: var(--font-weight-semibold);
+}
+@keyframes cs-popover-in {
+  from { opacity: 0; transform: scale(0.97); }
+}

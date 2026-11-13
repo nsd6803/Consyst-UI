@@ -1,57 +1,60 @@
 import * as React from "react";
 import { IconCircleCheck, IconCircleX, IconInfo, IconWarning, IconX } from "./icons";
+import { cn } from "./utils";
 import "./toast.css";
 
-export type ToastType = "success" | "error" | "info" | "warning";
+export type ToastTone = "success" | "danger" | "warning" | "info";
 
-const icons: Record<ToastType, React.ReactNode> = {
-  success: <IconCircleCheck size={16} />,
-  error: <IconCircleX size={16} />,
-  info: <IconInfo size={16} />,
-  warning: <IconWarning size={16} />,
+const icons: Record<ToastTone, React.ReactNode> = {
+  success: <IconCircleCheck />,
+  danger: <IconCircleX />,
+  warning: <IconWarning />,
+  info: <IconInfo />,
 };
 
 export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
-  type?: ToastType;
+  tone?: ToastTone;
   title: React.ReactNode;
   description?: React.ReactNode;
+  /** Кнопка действия (например, «Отменить») */
+  action?: { label: string; onClick: () => void };
   onClose?: () => void;
 }
 
-/** Всплывающее уведомление (toast / snackbar) */
-export function Toast({ type = "success", title, description, onClose, className, ...props }: ToastProps) {
+/** Всплывающее уведомление о результате действия */
+export function Toast({ tone = "success", title, description, action, onClose, className, ...props }: ToastProps) {
   return (
-    <div
-      role={type === "error" ? "alert" : "status"}
-      className={["cs-toast", `cs-toast--${type}`, className].filter(Boolean).join(" ")}
-      {...props}
-    >
-      <div className="cs-toast__header">
-        <span className="cs-toast__icon">{icons[type]}</span>
-        <span className="cs-toast__title">{title}</span>
-        {onClose && (
-          <button type="button" className="cs-toast__close" onClick={onClose} aria-label="Закрыть">
-            <IconX size={16} />
+    <div className={cn("cs-toast", `cs-toast--${tone}`, className)} {...props}>
+      <span className="cs-toast__icon">{icons[tone]}</span>
+      <div className="cs-toast__body">
+        <p className="cs-toast__title">{title}</p>
+        {description && <p className="cs-toast__description">{description}</p>}
+        {action && (
+          <button type="button" className="cs-toast__action" onClick={action.onClick}>
+            {action.label}
           </button>
         )}
       </div>
-      {description && <div className="cs-toast__description">{description}</div>}
+      {onClose && (
+        <button type="button" className="cs-toast__close" onClick={onClose} aria-label="Закрыть уведомление">
+          <IconX size={14} />
+        </button>
+      )}
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Глобальные тосты: toast({...}) + <Toaster /> в корне приложения     */
+/* Глобальные тосты: toast({...}) + <Toaster /> один раз в корне       */
 /* ------------------------------------------------------------------ */
 
-export type ToastOptions = {
-  type?: ToastType;
+export type ToastOptions = Omit<ToastProps, "onClose" | keyof React.HTMLAttributes<HTMLDivElement>> & {
   title: React.ReactNode;
-  description?: React.ReactNode;
-  /** Время показа в мс, 0 — не скрывать автоматически */
+  /** мс, 0 — не скрывать. По умолчанию 5000, для danger — 8000 */
   duration?: number;
 };
 type ToastItem = ToastOptions & { id: number };
+
 let items: ToastItem[] = [];
 let counter = 0;
 const listeners = new Set<(items: ToastItem[]) => void>();
@@ -59,7 +62,8 @@ const emit = () => listeners.forEach((l) => l(items));
 
 export function toast(options: ToastOptions) {
   const id = ++counter;
-  items = [...items, { duration: 4000, ...options, id }];
+  const duration = options.duration ?? (options.tone === "danger" ? 8000 : 5000);
+  items = [...items, { ...options, duration, id }].slice(-5);
   emit();
   return id;
 }
@@ -78,21 +82,32 @@ export function Toaster({ position = "bottom-right" }: { position?: "top-right" 
   }, []);
 
   return (
-    <div className={`cs-toaster cs-toaster--${position}`}>
+    <section className={cn("cs-toaster", `cs-toaster--${position}`)} aria-live="polite" aria-label="Уведомления">
       {list.map(({ id, duration, ...t }) => (
-        <AutoDismiss key={id} id={id} duration={duration}>
-          <Toast {...t} onClose={() => toast.dismiss(id)} />
-        </AutoDismiss>
+        <TimedToast key={id} id={id} duration={duration}>
+          <Toast {...t} role={t.tone === "danger" ? "alert" : "status"} onClose={() => toast.dismiss(id)} />
+        </TimedToast>
       ))}
-    </div>
+    </section>
   );
 }
 
-function AutoDismiss({ id, duration, children }: { id: number; duration?: number; children: React.ReactNode }) {
+/** Автоскрытие; таймер ставится на паузу при наведении и фокусе */
+function TimedToast({ id, duration, children }: { id: number; duration?: number; children: React.ReactNode }) {
+  const [paused, setPaused] = React.useState(false);
   React.useEffect(() => {
-    if (!duration) return;
+    if (!duration || paused) return;
     const t = window.setTimeout(() => toast.dismiss(id), duration);
     return () => window.clearTimeout(t);
-  }, [id, duration]);
-  return <>{children}</>;
+  }, [id, duration, paused]);
+  return (
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      {children}
+    </div>
+  );
 }

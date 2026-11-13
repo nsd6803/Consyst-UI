@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { IconPlus, IconSparkle } from "@/components/ui/icons";
+import { IconPlus } from "@/components/ui/icons";
 
 export default function ButtonSizes() {
   return (
     <div style={{ display: "grid", gap: 16 }}>
-      {(["large", "medium", "small", "tiny"] as const).map((size) => (
+      {(["sm", "md", "lg"] as const).map((size) => (
         <div key={size} style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Button size={size} leftIcon={<IconSparkle />} rightIcon={<IconSparkle />}>
-            Button label
+          <Button size={size} leftIcon={<IconPlus />}>
+            Кнопка {size}
           </Button>
-          <Button size={size} iconOnly aria-label="Добавить">
+          <Button size={size} variant="soft">
+            Soft
+          </Button>
+          <Button size={size} variant="secondary" iconOnly aria-label="Добавить">
             <IconPlus />
           </Button>
         </div>

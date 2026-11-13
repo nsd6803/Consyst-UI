@@ -1,0 +1,49 @@
+.cs-pagination {
+  --pagination-size: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+}
+.cs-pagination--sm {
+  --pagination-size: 28px;
+}
+.cs-pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pagination-size);
+  height: var(--pagination-size);
+  padding: 0 var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-fg-secondary);
+  cursor: pointer;
+}
+.cs-pagination__item:hover:not(:disabled) {
+  background: var(--color-bg-muted);
+  color: var(--color-fg);
+}
+.cs-pagination__item:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.cs-pagination__item--active,
+.cs-pagination__item--active:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  font-weight: var(--font-weight-semibold);
+}
+.cs-pagination__item:disabled {
+  color: var(--color-fg-disabled);
+  cursor: not-allowed;
+}
+.cs-pagination__ellipsis {
+  min-width: 20px;
+  text-align: center;
+  color: var(--color-fg-tertiary);
+}

@@ -1,0 +1,50 @@
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  width: 100%;
+  font-family: var(--font-sans);
+}
+.cs-field--horizontal {
+  display: grid;
+  grid-template-columns: minmax(120px, 200px) 1fr;
+  align-items: start;
+  gap: var(--space-4);
+}
+.cs-field--horizontal .cs-field__label {
+  padding-top: 10px;
+}
+.cs-field__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  min-width: 0;
+}
+.cs-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-0-5);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-sm);
+  color: var(--color-fg);
+}
+.cs-label__required {
+  color: var(--color-fg-danger);
+}
+.cs-field--disabled .cs-label {
+  color: var(--color-fg-disabled);
+}
+.cs-field__description,
+.cs-field__error {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+}
+.cs-field__description {
+  color: var(--color-fg-secondary);
+}
+.cs-field__error {
+  color: var(--color-fg-danger);
+}

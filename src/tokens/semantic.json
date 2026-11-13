@@ -1,0 +1,584 @@
+{
+  "$description": "Слой 2 — семантика. Значение = ссылка на примитив (палитра-шаг) или rgba(). Темы: light / dark. Компоненты используют только этот слой.",
+  "groups": {
+    "Поверхности": {
+      "bg": [
+        "neutral-0",
+        "neutral-950",
+        "Фон страницы"
+      ],
+      "bg-subtle": [
+        "neutral-100",
+        "neutral-900",
+        "Вторичный фон: сайдбар, панели, канвас, заполненные карточки"
+      ],
+      "bg-subtle-hover": [
+        "neutral-50",
+        "neutral-800",
+        "Наведение на карточку с заливкой bg-subtle: светлее и с тенью"
+      ],
+      "bg-muted": [
+        "neutral-150",
+        "neutral-800",
+        "Приглушённая заливка: hover, треки, неактивные плашки"
+      ],
+      "bg-emphasis": [
+        "neutral-200",
+        "neutral-700",
+        "Нажатое состояние, заливка на bg-subtle"
+      ],
+      "surface": [
+        "neutral-0",
+        "neutral-900",
+        "Карточки, таблицы, модалки"
+      ],
+      "surface-raised": [
+        "neutral-0",
+        "neutral-800",
+        "Поповеры, меню, тултипы, тосты"
+      ],
+      "overlay": [
+        "rgba(15, 16, 24, 0.48)",
+        "rgba(0, 0, 0, 0.64)",
+        "Затемнение под модалкой"
+      ]
+    },
+    "Текст и иконки": {
+      "fg": [
+        "neutral-950",
+        "neutral-25",
+        "Основной текст и иконки"
+      ],
+      "fg-secondary": [
+        "neutral-600",
+        "neutral-300",
+        "Вторичный текст: описания, подписи"
+      ],
+      "fg-tertiary": [
+        "neutral-500",
+        "neutral-400",
+        "Плейсхолдеры, метаданные, иконки. На белом ≥ 4.5:1, на заливке полей ≥ 3:1"
+      ],
+      "fg-disabled": [
+        "neutral-400",
+        "neutral-600",
+        "Текст недоступных элементов (контраст не нормируется)"
+      ],
+      "fg-inverse": [
+        "neutral-0",
+        "neutral-950",
+        "Текст на тёмной/инвертированной заливке"
+      ],
+      "fg-link": [
+        "blue-600",
+        "blue-400",
+        "Ссылки"
+      ],
+      "fg-danger": [
+        "red-700",
+        "red-400",
+        "Текст ошибки, обязательное поле"
+      ],
+      "fg-success": [
+        "green-700",
+        "green-400",
+        "Текст успеха"
+      ],
+      "fg-warning": [
+        "amber-700",
+        "amber-400",
+        "Текст предупреждения"
+      ]
+    },
+    "Границы и фокус": {
+      "border": [
+        "neutral-100",
+        "neutral-800",
+        "Разделители, границы карточек"
+      ],
+      "border-strong": [
+        "neutral-200",
+        "neutral-700",
+        "Границы полей ввода и контролов"
+      ],
+      "border-control": [
+        "neutral-500",
+        "neutral-500",
+        "Обводка чекбокса и радио (не меньше 3:1 к фону)"
+      ],
+      "border-hover": [
+        "neutral-300",
+        "neutral-600",
+        "Граница при наведении"
+      ],
+      "ring": [
+        "blue-500",
+        "blue-400",
+        "Обводка фокуса (клавиатура)"
+      ]
+    },
+    "Состояния": {
+      "bg-disabled": [
+        "neutral-100",
+        "neutral-800",
+        "Заливка недоступных контролов"
+      ],
+      "border-disabled": [
+        "neutral-150",
+        "neutral-800",
+        "Граница недоступных контролов"
+      ],
+      "bg-selected": [
+        "blue-50",
+        "blue-950",
+        "Выбранная строка / пункт"
+      ],
+      "fg-selected": [
+        "blue-700",
+        "blue-300",
+        "Текст выбранного пункта"
+      ]
+    },
+    "Контролы": {
+      "control": [
+        "neutral-100",
+        "neutral-800",
+        "Заливка полей ввода и select (fill-подход)"
+      ],
+      "control-hover": [
+        "neutral-150",
+        "neutral-700",
+        "Поле при наведении"
+      ],
+      "control-active": [
+        "neutral-0",
+        "neutral-900",
+        "Поле в фокусе — светлеет, акцент даёт ring"
+      ],
+      "control-on-subtle": [
+        "neutral-0",
+        "neutral-800",
+        "Заливка поля на панели bg-subtle (сайдбар, filled-карточка)"
+      ],
+      "control-on-subtle-hover": [
+        "neutral-50",
+        "neutral-700",
+        "Наведение на такое поле"
+      ]
+    },
+    "Primary": {
+      "primary": [
+        "blue-600",
+        "blue-600",
+        "Главное действие, активные элементы"
+      ],
+      "primary-hover": [
+        "blue-700",
+        "blue-700",
+        ""
+      ],
+      "primary-active": [
+        "blue-800",
+        "blue-800",
+        ""
+      ],
+      "primary-fg": [
+        "neutral-0",
+        "neutral-0",
+        "Текст на primary"
+      ],
+      "primary-subtle": [
+        "blue-50",
+        "blue-950",
+        "Мягкая заливка primary"
+      ],
+      "primary-subtle-hover": [
+        "blue-100",
+        "blue-900",
+        ""
+      ],
+      "primary-subtle-fg": [
+        "blue-600",
+        "blue-400",
+        "Текст на мягкой заливке"
+      ],
+      "primary-border": [
+        "blue-200",
+        "blue-800",
+        ""
+      ]
+    },
+    "Secondary": {
+      "secondary": [
+        "neutral-100",
+        "neutral-800",
+        "Второстепенное действие"
+      ],
+      "secondary-hover": [
+        "neutral-150",
+        "neutral-700",
+        ""
+      ],
+      "secondary-active": [
+        "neutral-200",
+        "neutral-600",
+        ""
+      ],
+      "secondary-fg": [
+        "neutral-950",
+        "neutral-25",
+        ""
+      ]
+    },
+    "Success": {
+      "success": [
+        "green-700",
+        "green-700",
+        "Успех, завершено, согласовано"
+      ],
+      "success-hover": [
+        "green-800",
+        "green-800",
+        ""
+      ],
+      "success-fg": [
+        "neutral-0",
+        "neutral-0",
+        ""
+      ],
+      "success-subtle": [
+        "green-50",
+        "green-950",
+        ""
+      ],
+      "success-subtle-fg": [
+        "green-700",
+        "green-400",
+        ""
+      ],
+      "success-border": [
+        "green-200",
+        "green-800",
+        ""
+      ]
+    },
+    "Warning": {
+      "warning": [
+        "amber-400",
+        "amber-400",
+        "Внимание, ожидание"
+      ],
+      "warning-hover": [
+        "amber-500",
+        "amber-300",
+        ""
+      ],
+      "warning-fg": [
+        "neutral-950",
+        "neutral-950",
+        "На жёлтом — только тёмный текст"
+      ],
+      "warning-subtle": [
+        "amber-50",
+        "amber-950",
+        ""
+      ],
+      "warning-subtle-fg": [
+        "amber-700",
+        "amber-400",
+        ""
+      ],
+      "warning-border": [
+        "amber-200",
+        "amber-800",
+        ""
+      ]
+    },
+    "Danger": {
+      "danger": [
+        "red-600",
+        "red-600",
+        "Ошибка, удаление, отклонено"
+      ],
+      "danger-hover": [
+        "red-700",
+        "red-700",
+        ""
+      ],
+      "danger-fg": [
+        "neutral-0",
+        "neutral-0",
+        ""
+      ],
+      "danger-subtle": [
+        "red-50",
+        "red-950",
+        ""
+      ],
+      "danger-subtle-fg": [
+        "red-700",
+        "red-400",
+        ""
+      ],
+      "danger-border": [
+        "red-200",
+        "red-800",
+        ""
+      ]
+    },
+    "Info": {
+      "info": [
+        "blue-600",
+        "blue-600",
+        "Информация, подсказки"
+      ],
+      "info-hover": [
+        "blue-700",
+        "blue-700",
+        ""
+      ],
+      "info-fg": [
+        "neutral-0",
+        "neutral-0",
+        ""
+      ],
+      "info-subtle": [
+        "blue-50",
+        "blue-950",
+        ""
+      ],
+      "info-subtle-fg": [
+        "blue-600",
+        "blue-400",
+        ""
+      ],
+      "info-border": [
+        "blue-200",
+        "blue-800",
+        ""
+      ]
+    },
+    "Accent": {
+      "accent": [
+        "violet-600",
+        "violet-600",
+        "Акценты, выделение, бейджи «новое»"
+      ],
+      "accent-fg": [
+        "neutral-0",
+        "neutral-0",
+        ""
+      ],
+      "accent-subtle": [
+        "violet-50",
+        "violet-950",
+        ""
+      ],
+      "accent-subtle-fg": [
+        "violet-600",
+        "violet-400",
+        ""
+      ]
+    }
+  },
+  "contrast": {
+    "$description": "Пары «текст / фон», которые должны проходить WCAG 2.1 AA. min — минимальный контраст.",
+    "pairs": [
+      [
+        "fg",
+        "bg",
+        4.5
+      ],
+      [
+        "fg",
+        "bg-subtle",
+        4.5
+      ],
+      [
+        "fg",
+        "bg-muted",
+        4.5
+      ],
+      [
+        "fg",
+        "surface-raised",
+        4.5
+      ],
+      [
+        "fg-secondary",
+        "bg",
+        4.5
+      ],
+      [
+        "fg-secondary",
+        "bg-subtle",
+        4.5
+      ],
+      [
+        "fg-secondary",
+        "bg-muted",
+        4.5
+      ],
+      [
+        "fg-tertiary",
+        "bg",
+        4.5
+      ],
+      [
+        "fg-tertiary",
+        "bg-subtle",
+        3
+      ],
+      [
+        "fg-link",
+        "bg",
+        4.5
+      ],
+      [
+        "fg-selected",
+        "bg-selected",
+        4.5
+      ],
+      [
+        "primary-fg",
+        "primary",
+        4.5
+      ],
+      [
+        "primary-fg",
+        "primary-hover",
+        4.5
+      ],
+      [
+        "primary-subtle-fg",
+        "primary-subtle",
+        4.5
+      ],
+      [
+        "primary",
+        "bg",
+        3
+      ],
+      [
+        "secondary-fg",
+        "secondary",
+        4.5
+      ],
+      [
+        "success-fg",
+        "success",
+        4.5
+      ],
+      [
+        "success-subtle-fg",
+        "success-subtle",
+        4.5
+      ],
+      [
+        "warning-fg",
+        "warning",
+        4.5
+      ],
+      [
+        "warning-subtle-fg",
+        "warning-subtle",
+        4.5
+      ],
+      [
+        "danger-fg",
+        "danger",
+        4.5
+      ],
+      [
+        "danger-fg",
+        "danger-hover",
+        4.5
+      ],
+      [
+        "danger-subtle-fg",
+        "danger-subtle",
+        4.5
+      ],
+      [
+        "info-fg",
+        "info",
+        4.5
+      ],
+      [
+        "info-subtle-fg",
+        "info-subtle",
+        4.5
+      ],
+      [
+        "accent-fg",
+        "accent",
+        4.5
+      ],
+      [
+        "accent-subtle-fg",
+        "accent-subtle",
+        4.5
+      ],
+      [
+        "ring",
+        "bg",
+        3
+      ],
+      [
+        "fg-danger",
+        "bg",
+        4.5
+      ],
+      [
+        "fg-danger",
+        "surface-raised",
+        4.5
+      ],
+      [
+        "fg-success",
+        "bg",
+        4.5
+      ],
+      [
+        "fg-warning",
+        "bg",
+        4.5
+      ],
+      [
+        "fg",
+        "control",
+        4.5
+      ],
+      [
+        "fg-tertiary",
+        "control",
+        3
+      ],
+      [
+        "fg",
+        "bg-emphasis",
+        4.5
+      ],
+      [
+        "border-control",
+        "bg",
+        3
+      ],
+      [
+        "border-control",
+        "bg-subtle",
+        3
+      ],
+      [
+        "fg",
+        "control-on-subtle",
+        4.5
+      ],
+      [
+        "fg-tertiary",
+        "control-on-subtle",
+        3
+      ]
+    ]
+  }
+}

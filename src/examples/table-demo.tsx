@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { Table, type TableColumn } from "@/components/ui/table";
-import { Status, type StatusState } from "@/components/ui/status";
+import { Status, type StatusTone } from "@/components/ui/status";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { IconCalendar, IconDots } from "@/components/ui/icons";
+import { Tabs } from "@/components/ui/tabs";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { IconDots, IconDownload, IconPen } from "@/components/ui/icons";
 
 type Student = {
   id: string;
   name: string;
-  status: { label: string; state: StatusState };
+  status: { label: string; tone: StatusTone };
   mentor: string | null;
   university: string;
   start: string;
@@ -16,28 +20,23 @@ const data: Student[] = Array.from({ length: 27 }, (_, i) => ({
   id: String(i + 1),
   name: ["Комарова Елена Сергеевна", "Иванов Пётр Андреевич", "Смирнова Анна Олеговна"][i % 3],
   status: [
-    { label: "Ожидает подбор", state: "warning" as const },
-    { label: "Согласован", state: "info" as const },
-    { label: "Проходит практику", state: "success" as const },
+    { label: "Ожидает подбор", tone: "warning" as const },
+    { label: "Согласован", tone: "info" as const },
+    { label: "Проходит практику", tone: "success" as const },
   ][i % 3],
-  mentor: i % 3 === 0 ? null : "Афанасьева М.А.",
+  mentor: i % 3 === 0 ? null : "Афанасьева Мария",
   university: ["РТУ МИРЭА", "НИЯУ МИФИ", "МГТУ им. Баумана"][i % 3],
   start: `${String((i % 28) + 1).padStart(2, "0")}.12.2025`,
 }));
 
 const columns: TableColumn<Student>[] = [
-  {
-    key: "name",
-    title: "ФИО",
-    sortable: true,
-    render: (r) => <span style={{ color: r.status.state === "success" ? "var(--color-accent-primary)" : undefined }}>{r.name}</span>,
-  },
+  { key: "name", title: "ФИО", sortable: true },
   {
     key: "status",
     title: "Статус",
     sortable: true,
     sortValue: (r) => r.status.label,
-    render: (r) => <Status state={r.status.state}>{r.status.label}</Status>,
+    render: (r) => <Status tone={r.status.tone}>{r.status.label}</Status>,
   },
   {
     key: "mentor",
@@ -45,42 +44,63 @@ const columns: TableColumn<Student>[] = [
     render: (r) =>
       r.mentor ? (
         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-          <span className="avatar">{r.mentor[0]}</span>
+          <Avatar name={r.mentor} size="sm" />
           {r.mentor}
         </span>
       ) : (
-        <Button size="tiny">Подобрать</Button>
+        <Button size="sm" variant="secondary">
+          Подобрать
+        </Button>
       ),
   },
   { key: "university", title: "ВУЗ", sortable: true },
-  {
-    key: "start",
-    title: "Начало",
-    render: (r) => (
-      <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-        <IconCalendar size={12} color="var(--color-icon-secondary)" />
-        {r.start}
-      </span>
-    ),
-  },
+  { key: "start", title: "Начало", align: "right" },
   {
     key: "actions",
-    title: "Действия",
+    title: <span className="cs-sr-only">Действия</span>,
     sticky: true,
-    align: "right",
+    width: 56,
     render: () => (
-      <Button variant="text" color="neutral" size="tiny" iconOnly aria-label="Ещё">
-        <IconDots />
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm" iconOnly aria-label="Действия">
+            <IconDots />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem icon={<IconPen />}>Редактировать</DropdownMenuItem>
+          <DropdownMenuItem icon={<IconDownload />}>Скачать резюме</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     ),
   },
 ];
 
 export default function TableDemo() {
+  const [state, setState] = useState("data");
   return (
-    <>
-      <style>{`.avatar{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--color-blue-100);color:var(--color-accent-primary);font-size:11px}`}</style>
-      <Table columns={columns} data={data} rowKey={(r) => r.id} selectable pageSize={5} pageSizeOptions={[5, 10, 20]} />
-    </>
+    <div style={{ display: "grid", gap: 12, width: "100%" }}>
+      <Tabs
+        variant="pill"
+        size="sm"
+        value={state}
+        onValueChange={setState}
+        items={[
+          { value: "data", label: "Данные" },
+          { value: "loading", label: "Загрузка" },
+          { value: "empty", label: "Пусто" },
+        ]}
+      />
+      <Table
+        caption="Практиканты"
+        columns={columns}
+        data={state === "empty" ? [] : data}
+        loading={state === "loading"}
+        rowKey={(r) => r.id}
+        selectable
+        pageSize={5}
+        pageSizeOptions={[5, 10, 20]}
+      />
+    </div>
   );
 }

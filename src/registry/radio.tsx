@@ -1,65 +1,61 @@
 import * as React from "react";
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { useFieldControl } from "./field";
+import { cn } from "./utils";
+import "./checkbox.css";
 import "./radio.css";
 
-export interface RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size"> {
-  label?: React.ReactNode;
+export interface RadioOption {
+  value: string;
+  label: React.ReactNode;
+  description?: React.ReactNode;
+  disabled?: boolean;
 }
 
-export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
-  ({ label, className, disabled, ...props }, ref) => (
-    <label
-      className={["cs-radio", disabled && "cs-radio--disabled", className].filter(Boolean).join(" ")}
-    >
-      <input ref={ref} type="radio" className="cs-radio__input" disabled={disabled} {...props} />
-      <span className="cs-radio__circle" />
-      {label && <span className="cs-radio__label">{label}</span>}
-    </label>
-  ),
+export interface RadioGroupProps extends Omit<React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>, "children"> {
+  options?: RadioOption[];
+  /** horizontal — в строку */
+  orientation?: "vertical" | "horizontal";
+  invalid?: boolean;
+  children?: React.ReactNode;
+}
+
+/** Группа радиокнопок. Стрелки переключают выбор — из Radix */
+export const RadioGroup = React.forwardRef<React.ElementRef<typeof RadioGroupPrimitive.Root>, RadioGroupProps>(
+  ({ options, orientation = "vertical", invalid, className, children, id, ...props }, ref) => {
+    const field = useFieldControl({ id, disabled: props.disabled, invalid });
+    return (
+      <RadioGroupPrimitive.Root
+        ref={ref}
+        id={field.id}
+        orientation={orientation}
+        aria-invalid={field["aria-invalid"]}
+        aria-describedby={field["aria-describedby"]}
+        className={cn("cs-radio-group", `cs-radio-group--${orientation}`, className)}
+        {...props}
+        disabled={field.disabled}
+      >
+        {options?.map((o) => <RadioItem key={o.value} {...o} />)}
+        {children}
+      </RadioGroupPrimitive.Root>
+    );
+  },
 );
-Radio.displayName = "Radio";
+RadioGroup.displayName = "RadioGroup";
 
-export interface RadioGroupProps {
-  name: string;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  options: { value: string; label: React.ReactNode; disabled?: boolean }[];
-  /** Расположение пунктов */
-  direction?: "vertical" | "horizontal";
-  className?: string;
-}
-
-export function RadioGroup({
-  name,
-  value,
-  defaultValue,
-  onChange,
-  options,
-  direction = "vertical",
-  className,
-}: RadioGroupProps) {
-  const [inner, setInner] = React.useState(defaultValue);
-  const current = value ?? inner;
+export function RadioItem({ value, label, description, disabled }: RadioOption) {
+  const id = React.useId();
   return (
-    <div
-      role="radiogroup"
-      className={["cs-radio-group", `cs-radio-group--${direction}`, className].filter(Boolean).join(" ")}
-    >
-      {options.map((o) => (
-        <Radio
-          key={o.value}
-          name={name}
-          value={o.value}
-          label={o.label}
-          disabled={o.disabled}
-          checked={current === o.value}
-          onChange={() => {
-            setInner(o.value);
-            onChange?.(o.value);
-          }}
-        />
-      ))}
+    <div className={cn("cs-choice", disabled && "cs-choice--disabled")}>
+      <RadioGroupPrimitive.Item id={id} value={value} disabled={disabled} className="cs-radio">
+        <RadioGroupPrimitive.Indicator className="cs-radio__dot" />
+      </RadioGroupPrimitive.Item>
+      <div className="cs-choice__text">
+        <label htmlFor={id} className="cs-choice__label">
+          {label}
+        </label>
+        {description && <p className="cs-choice__description">{description}</p>}
+      </div>
     </div>
   );
 }

@@ -1,33 +1,55 @@
 import * as React from "react";
-import { IconCircleX } from "./icons";
-import "./input.css";
+import { IconCircleX, IconEye, IconEyeSlash } from "./icons";
+import { FloatingLabel, useFieldControl, useFloatingLabel } from "./field";
+import { cn } from "./utils";
+import "./control.css";
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
-  /** Плавающая подпись — в пустом поле это плейсхолдер, при вводе поднимается на рамку */
-  label?: string;
-  /** Текст ошибки. Если передан — поле подсвечивается красным */
-  error?: string;
-  /** Иконка справа */
-  icon?: React.ReactNode;
-  /** Показывать кнопку очистки, когда поле заполнено */
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "prefix"> {
+  size?: "sm" | "md" | "lg";
+  /** Плавающая подпись внутри поля (внутри <Field> берётся из его label) */
+  label?: React.ReactNode;
+  /** Иконка или текст слева (например, ₽ или иконка поиска) */
+  prefix?: React.ReactNode;
+  /** Иконка или текст справа */
+  suffix?: React.ReactNode;
+  /** Кнопка очистки, когда поле заполнено */
   clearable?: boolean;
   onClear?: () => void;
+  /** Ошибка без <Field> (внутри Field берётся из него) */
+  invalid?: boolean;
+  /** Класс оболочки */
   containerClassName?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, error, icon, clearable = true, onClear, containerClassName, className, disabled, id, value, defaultValue, onChange, ...props },
+    {
+      size = "md",
+      label,
+      prefix,
+      suffix,
+      clearable = false,
+      onClear,
+      invalid,
+      containerClassName,
+      className,
+      type = "text",
+      value,
+      defaultValue,
+      onChange,
+      ...props
+    },
     ref,
   ) => {
-    const autoId = React.useId();
-    const inputId = id ?? autoId;
+    const field = useFieldControl({ ...props, invalid });
+    const float = useFloatingLabel(label, size);
     const innerRef = React.useRef<HTMLInputElement>(null);
     React.useImperativeHandle(ref, () => innerRef.current as HTMLInputElement);
 
     const [inner, setInner] = React.useState(String(defaultValue ?? ""));
     const current = value !== undefined ? String(value) : inner;
-    const hasValue = current.length > 0;
+    const [reveal, setReveal] = React.useState(false);
+    const isPassword = type === "password";
 
     const clear = () => {
       setInner("");
@@ -36,44 +58,53 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className={["cs-field-wrap", containerClassName].filter(Boolean).join(" ")}>
-        <div
-          className={[
-            "cs-field",
-            error && "cs-field--error",
-            disabled && "cs-field--disabled",
-            hasValue && "cs-field--filled",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          <input
-            ref={innerRef}
-            id={inputId}
-            className={["cs-field__control", className].filter(Boolean).join(" ")}
-            placeholder=" "
-            disabled={disabled}
-            aria-invalid={!!error || undefined}
-            value={current}
-            onChange={(e) => {
-              setInner(e.target.value);
-              onChange?.(e);
-            }}
-            {...props}
-          />
-          {label && (
-            <label htmlFor={inputId} className="cs-field__label">
-              {label}
-            </label>
-          )}
-          {icon && <span className="cs-field__icon">{icon}</span>}
-          {clearable && hasValue && !disabled && (
-            <button type="button" className="cs-field__clear" onClick={clear} aria-label="Очистить">
-              <IconCircleX size={14} />
-            </button>
-          )}
+      <div
+        className={cn("cs-control", `cs-control--${size}`, float.floating && "cs-control--floating", containerClassName)}
+        data-filled={current.length > 0 || undefined}
+        data-invalid={field.invalid || undefined}
+        data-disabled={field.disabled || undefined}
+      >
+        {prefix && <span className="cs-control__affix">{prefix}</span>}
+        <div className="cs-control__float">
+        <input
+          ref={innerRef}
+          type={isPassword && reveal ? "text" : type}
+          className={cn("cs-control__input", className)}
+          value={current}
+          onChange={(e) => {
+            setInner(e.target.value);
+            onChange?.(e);
+          }}
+          {...props}
+          id={field.id}
+          disabled={field.disabled}
+          required={field.required}
+          aria-invalid={field["aria-invalid"]}
+          aria-describedby={field["aria-describedby"]}
+        />
+        {float.floating && (
+          <FloatingLabel htmlFor={field.id} required={field.required ?? float.required}>
+            {float.label}
+          </FloatingLabel>
+        )}
         </div>
-        {error && <p className="cs-field__error">{error}</p>}
+        {clearable && current.length > 0 && !field.disabled && (
+          <button type="button" className="cs-control__action" onClick={clear} aria-label="Очистить">
+            <IconCircleX size={14} />
+          </button>
+        )}
+        {isPassword && (
+          <button
+            type="button"
+            className="cs-control__action"
+            onClick={() => setReveal((r) => !r)}
+            aria-label={reveal ? "Скрыть пароль" : "Показать пароль"}
+            aria-pressed={reveal}
+          >
+            {reveal ? <IconEyeSlash size={14} /> : <IconEye size={14} />}
+          </button>
+        )}
+        {suffix && <span className="cs-control__affix">{suffix}</span>}
       </div>
     );
   },

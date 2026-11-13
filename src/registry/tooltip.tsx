@@ -1,45 +1,33 @@
 import * as React from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import "./tooltip.css";
+
+/** Оберните приложение один раз — общая задержка для всех тултипов */
+export const TooltipProvider = TooltipPrimitive.Provider;
 
 export interface TooltipProps {
   content: React.ReactNode;
-  children: React.ReactNode;
-  side?: "top" | "bottom" | "left" | "right";
-  /** Задержка появления, мс */
+  /** Элемент, который получает фокус/наведение (кнопка, иконка с tabIndex) */
+  children: React.ReactElement;
+  side?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
   delay?: number;
-  className?: string;
 }
 
-export function Tooltip({ content, children, side = "top", delay = 150, className }: TooltipProps) {
-  const [open, setOpen] = React.useState(false);
-  const timer = React.useRef<number>();
-  const id = React.useId();
-
-  const show = () => {
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setOpen(true), delay);
-  };
-  const hide = () => {
-    window.clearTimeout(timer.current);
-    setOpen(false);
-  };
-  React.useEffect(() => () => window.clearTimeout(timer.current), []);
-
+/**
+ * Короткая подсказка по наведению и фокусу клавиатурой.
+ * Не кладите в тултип важную информацию и интерактивные элементы — для этого Popover.
+ */
+export function Tooltip({ content, children, side = "top", align = "center", delay = 300 }: TooltipProps) {
   return (
-    <span
-      className={["cs-tooltip", className].filter(Boolean).join(" ")}
-      onMouseEnter={show}
-      onMouseLeave={hide}
-      onFocus={show}
-      onBlur={hide}
-      aria-describedby={open ? id : undefined}
-    >
-      {children}
-      {open && (
-        <span role="tooltip" id={id} className={`cs-tooltip__content cs-tooltip__content--${side}`}>
+    <TooltipPrimitive.Root delayDuration={delay}>
+      <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content side={side} align={align} sideOffset={6} className="cs-tooltip">
           {content}
-        </span>
-      )}
-    </span>
+          <TooltipPrimitive.Arrow className="cs-tooltip__arrow" width={10} height={5} />
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
+    </TooltipPrimitive.Root>
   );
 }

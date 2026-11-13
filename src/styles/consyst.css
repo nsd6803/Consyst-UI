@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Consyst UI — дизайн-токены
-   Подключите этот файл один раз в корне приложения (например, в main.tsx).
-   Шрифты Rosatom положите в /public/fonts.
+   Consyst UI — дизайн-токены «ПроДвижение»
+   Подключите один раз в корне приложения. Шрифты Rosatom и Font Awesome — в /public/fonts.
+   Слои: примитивы → семантика (light/dark) → токены компонентов (в CSS компонентов).
    ========================================================================== */
 
 @font-face {
@@ -33,114 +33,391 @@
   font-display: swap;
 }
 
+/* Font Awesome 7 Pro (Solid) — иконки. Лицензионный шрифт: положите файл в /public/fonts
+   (в публичный репозиторий не коммитить). */
+@font-face {
+  font-family: "Font Awesome 7 Pro";
+  src: url("/fonts/fa-solid-900.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* ==========================================================================
+   Токены (static): типографика, отступы, размеры, радиусы, тени, движение
+   ========================================================================== */
 :root {
-  /* ---------- Fonts ---------- */
-  --font-title: "Rosatom", "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* ---------- Шрифты ---------- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Rosatom", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-icon: "Font Awesome 7 Pro";
 
-  /* ---------- Primitives ---------- */
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5dc;
-  --color-gray-400: #99a1af;
-  --color-gray-500: #6a7282;
-  --color-gray-600: #4a5565;
-  --color-gray-700: #364153;
-  --color-blue-100: #dbeafe;
-  --color-blue-400: #51a2ff;
-  --color-blue-500: #2b7fff;
-  --color-blue-600: #155dfc;
-  --color-blue-700: #1447e6;
-  --color-violet-500: #8e51ff;
-  --color-red-200: #ffc9c9;
-  --color-red-300: #ffa2a2;
-  --color-red-500: #fb2c36;
-  --color-red-600: #e7000b;
-  --color-red-700: #c10007;
-  --color-orange-200: #ffd6a8;
-  --color-orange-300: #ffb86a;
-  --color-orange-400: #ff8904;
-  --color-orange-700: #ca3500;
-  --color-amber-500: #fd9a00;
-  --color-amber-600: #e17100;
-  --color-amber-700: #bb4d00;
-  --color-yellow-600: #d08700;
-  --color-green-200: #b9f8cf;
-  --color-green-300: #7bf1a8;
-  --color-green-500: #00c951;
-  --color-green-600: #00a63e;
-  --color-green-700: #008236;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  /* ---------- Semantic: accents ---------- */
-  --color-accent-primary: var(--color-blue-600);
-  --color-accent-secondary: var(--color-violet-500);
-  --color-accent-success: var(--color-green-600);
-  --color-accent-warning: var(--color-orange-400);
-  --color-accent-error: var(--color-red-600);
-  --color-accent-info: var(--color-blue-400);
+  /* Размер / межстрочный интервал — пары, интервал кратен 4 */
+  --text-xs: 12px;   --leading-xs: 16px;
+  --text-sm: 14px;   --leading-sm: 20px;
+  --text-md: 16px;   --leading-md: 24px;
+  --text-lg: 18px;   --leading-lg: 28px;
+  --text-xl: 20px;   --leading-xl: 28px;
+  --text-2xl: 24px;  --leading-2xl: 32px;
+  --text-3xl: 32px;  --leading-3xl: 40px;
+  --text-4xl: 40px;  --leading-4xl: 48px;
 
-  /* ---------- Semantic: background ---------- */
-  --color-bg-primary: #ffffff;
-  --color-bg-primary-alpha-50: #ffffff80;
-  --color-bg-secondary: #f9fafc;
-  --color-bg-muted: #f1f1f4;
-  --color-bg-neutral: #aaabb9;
-  --color-bg-inverse: #000000;
-  --color-bg-transparent: #ffffff00;
-  --color-bg-primary-subtle: #155dfc26;
-  --color-bg-success-subtle: #00c95126;
-  --color-bg-warning-subtle: #ff890426;
-  --color-bg-error-subtle: #fb2c3626;
-  --color-bg-info-subtle: #2b7fff26;
-  --color-bg-neutral-subtle: rgba(169, 170, 183, 0.2);
+  /* ---------- Отступы: базовая единица 4px ---------- */
+  --space-0: 0px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 
-  /* ---------- Semantic: text / icon / border ---------- */
-  --color-text-primary: #000000;
-  --color-text-secondary: #aaabb9;
-  --color-text-inverse: #ffffff;
-  --color-icon-secondary: #aaabb9;
-  --color-icon-inverse: #ffffff;
-  --color-border-default: #f1f1f4;
-  --color-border-strong: #e2e8f0;
-  --color-border-emphasis: #aaabb9;
+  /* ---------- Размеры контролов (общие для Button, Input, Select, Search…) ---------- */
+  --control-height-sm: 32px;
+  --control-height-md: 40px;
+  --control-height-lg: 48px;
+  --control-padding-sm: 12px;
+  --control-padding-md: 16px;
+  --control-padding-lg: 20px;
+  --icon-size-sm: 14px;
+  --icon-size-md: 16px;
+  --icon-size-lg: 20px;
 
-  /* ---------- Spacing ---------- */
-  --gap-0: 0px;
-  --gap-0-5: 2px;
-  --gap-1: 4px;
-  --gap-1-5: 6px;
-  --gap-2: 8px;
-  --gap-3: 12px;
-  --gap-4: 16px;
-  --gap-6: 24px;
-  --gap-8: 32px;
-  --gap-12: 48px;
-
-  /* ---------- Radius ---------- */
-  --radius-none: 0px;
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-3xl: 24px;
-  --radius-4xl: 32px;
+  /* ---------- Радиусы: всё выводится из одного --radius ---------- */
+  --radius: 8px;
+  --radius-xs: calc(var(--radius) - 6px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
   --radius-full: 9999px;
 
-  /* ---------- Shadows ---------- */
-  --shadow-none: 0 0 0 0 #000;
-  --shadow-2xs: 0 1px 0 0 #0000000d;
-  --shadow-xs: 0 1px 2px 0 #0000000d;
-  --shadow-sm: 4px 4px 19.6px 0 #00000005, 0 6px 10px 0 #b5c3d21a;
-  --shadow-md: 0 2px 4px -1px #0000000f, 0 4px 6px -1px #0000001a;
-  --shadow-lg: 0 4px 6px -2px #0000000d, 0 10px 15px -3px #0000001a;
-  --shadow-xl: 0 10px 10px -5px #0000000a, 0 20px 25px -5px #0000001a;
-  --shadow-2xl: 0 25px 50px -12px #00000040;
-  --shadow-inner: inset 0 2px 4px 0 #0000000f;
+  /* ---------- Тени: уровни по назначению ---------- */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 16, 24, 0.05);
+  --shadow-sm: 0 6px 10px 0 rgba(181, 195, 210, 0.1), 4px 4px 19.6px 0 rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -2px rgba(15, 16, 24, 0.05), 0 10px 15px -3px rgba(15, 16, 24, 0.08);
+  --shadow-lg: 0 10px 10px -5px rgba(15, 16, 24, 0.04), 0 20px 25px -5px rgba(15, 16, 24, 0.1);
+  --shadow-xl: 0 25px 50px -12px rgba(15, 16, 24, 0.25);
+  --shadow-card: var(--shadow-sm);
+  --shadow-popover: var(--shadow-md);
+  --shadow-dialog: var(--shadow-xl);
 
-  /* ---------- Opacity ---------- */
-  --opacity-disabled: 0.4;
+  /* ---------- Обводка и фокус ---------- */
+  --border-width: 1px;
+  --border-width-strong: 1.5px;
+  --focus-ring: 0 0 0 2px var(--color-ring);
+
+  /* ---------- Движение ---------- */
+  --duration-fast: 100ms;
+  --duration-base: 160ms;
+  --duration-slow: 240ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---------- Слои ---------- */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-overlay: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
 }
+
+[data-theme="dark"] {
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 16px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 32px -8px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================================================
+   Цвета — СГЕНЕРИРОВАНО scripts/build-tokens.mjs из src/tokens/*.json.
+   Не правьте руками: измените JSON и запустите npm run tokens.
+   ========================================================================== */
+/* <generated> */
+:root {
+  /* Слой 1 — примитивы (не используйте в компонентах напрямую) */
+  --neutral-0: #ffffff;
+  --neutral-25: #f9fafc;
+  --neutral-50: #f5f6f9;
+  --neutral-100: #f1f1f4;
+  --neutral-150: #e8e9ee;
+  --neutral-200: #dcdde5;
+  --neutral-300: #c4c5d1;
+  --neutral-400: #aaabb9;
+  --neutral-500: #737588;
+  --neutral-600: #66687b;
+  --neutral-700: #404254;
+  --neutral-800: #2a2b3a;
+  --neutral-900: #1b1c27;
+  --neutral-950: #0f1018;
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bedbff;
+  --blue-300: #8ec5ff;
+  --blue-400: #51a2ff;
+  --blue-500: #2b7fff;
+  --blue-600: #155dfc;
+  --blue-700: #1447e6;
+  --blue-800: #193cb8;
+  --blue-900: #1c398e;
+  --blue-950: #162456;
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-200: #b9f8cf;
+  --green-300: #7bf1a8;
+  --green-400: #05df72;
+  --green-500: #00c951;
+  --green-600: #00a63e;
+  --green-700: #008236;
+  --green-800: #016630;
+  --green-900: #0d542b;
+  --green-950: #052e16;
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c6;
+  --amber-200: #fee685;
+  --amber-300: #ffd230;
+  --amber-400: #ffba00;
+  --amber-500: #fd9a00;
+  --amber-600: #e17100;
+  --amber-700: #bb4d00;
+  --amber-800: #973c00;
+  --amber-900: #7b3306;
+  --amber-950: #461901;
+  --red-50: #fef2f2;
+  --red-100: #ffe2e2;
+  --red-200: #ffc9c9;
+  --red-300: #ffa2a2;
+  --red-400: #ff6467;
+  --red-500: #fb2c36;
+  --red-600: #e7000b;
+  --red-700: #c10007;
+  --red-800: #9f0712;
+  --red-900: #82181a;
+  --red-950: #460809;
+  --violet-50: #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-200: #ddd6ff;
+  --violet-300: #c4b4ff;
+  --violet-400: #a684ff;
+  --violet-500: #8e51ff;
+  --violet-600: #7f22fe;
+  --violet-700: #7008e7;
+  --violet-800: #5d0ec0;
+  --violet-900: #4d179a;
+  --violet-950: #2f0d68;
+}
+
+/* Слой 2 — семантика: light */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  /* Поверхности */
+  --color-bg: var(--neutral-0);
+  --color-bg-subtle: var(--neutral-100);
+  --color-bg-subtle-hover: var(--neutral-50);
+  --color-bg-muted: var(--neutral-150);
+  --color-bg-emphasis: var(--neutral-200);
+  --color-surface: var(--neutral-0);
+  --color-surface-raised: var(--neutral-0);
+  --color-overlay: rgba(15, 16, 24, 0.48);
+  /* Текст и иконки */
+  --color-fg: var(--neutral-950);
+  --color-fg-secondary: var(--neutral-600);
+  --color-fg-tertiary: var(--neutral-500);
+  --color-fg-disabled: var(--neutral-400);
+  --color-fg-inverse: var(--neutral-0);
+  --color-fg-link: var(--blue-600);
+  --color-fg-danger: var(--red-700);
+  --color-fg-success: var(--green-700);
+  --color-fg-warning: var(--amber-700);
+  /* Границы и фокус */
+  --color-border: var(--neutral-100);
+  --color-border-strong: var(--neutral-200);
+  --color-border-control: var(--neutral-500);
+  --color-border-hover: var(--neutral-300);
+  --color-ring: var(--blue-500);
+  /* Состояния */
+  --color-bg-disabled: var(--neutral-100);
+  --color-border-disabled: var(--neutral-150);
+  --color-bg-selected: var(--blue-50);
+  --color-fg-selected: var(--blue-700);
+  /* Контролы */
+  --color-control: var(--neutral-100);
+  --color-control-hover: var(--neutral-150);
+  --color-control-active: var(--neutral-0);
+  --color-control-on-subtle: var(--neutral-0);
+  --color-control-on-subtle-hover: var(--neutral-50);
+  /* Primary */
+  --color-primary: var(--blue-600);
+  --color-primary-hover: var(--blue-700);
+  --color-primary-active: var(--blue-800);
+  --color-primary-fg: var(--neutral-0);
+  --color-primary-subtle: var(--blue-50);
+  --color-primary-subtle-hover: var(--blue-100);
+  --color-primary-subtle-fg: var(--blue-600);
+  --color-primary-border: var(--blue-200);
+  /* Secondary */
+  --color-secondary: var(--neutral-100);
+  --color-secondary-hover: var(--neutral-150);
+  --color-secondary-active: var(--neutral-200);
+  --color-secondary-fg: var(--neutral-950);
+  /* Success */
+  --color-success: var(--green-700);
+  --color-success-hover: var(--green-800);
+  --color-success-fg: var(--neutral-0);
+  --color-success-subtle: var(--green-50);
+  --color-success-subtle-fg: var(--green-700);
+  --color-success-border: var(--green-200);
+  /* Warning */
+  --color-warning: var(--amber-400);
+  --color-warning-hover: var(--amber-500);
+  --color-warning-fg: var(--neutral-950);
+  --color-warning-subtle: var(--amber-50);
+  --color-warning-subtle-fg: var(--amber-700);
+  --color-warning-border: var(--amber-200);
+  /* Danger */
+  --color-danger: var(--red-600);
+  --color-danger-hover: var(--red-700);
+  --color-danger-fg: var(--neutral-0);
+  --color-danger-subtle: var(--red-50);
+  --color-danger-subtle-fg: var(--red-700);
+  --color-danger-border: var(--red-200);
+  /* Info */
+  --color-info: var(--blue-600);
+  --color-info-hover: var(--blue-700);
+  --color-info-fg: var(--neutral-0);
+  --color-info-subtle: var(--blue-50);
+  --color-info-subtle-fg: var(--blue-600);
+  --color-info-border: var(--blue-200);
+  /* Accent */
+  --color-accent: var(--violet-600);
+  --color-accent-fg: var(--neutral-0);
+  --color-accent-subtle: var(--violet-50);
+  --color-accent-subtle-fg: var(--violet-600);
+}
+
+/* Слой 2 — семантика: dark */
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Поверхности */
+  --color-bg: var(--neutral-950);
+  --color-bg-subtle: var(--neutral-900);
+  --color-bg-subtle-hover: var(--neutral-800);
+  --color-bg-muted: var(--neutral-800);
+  --color-bg-emphasis: var(--neutral-700);
+  --color-surface: var(--neutral-900);
+  --color-surface-raised: var(--neutral-800);
+  --color-overlay: rgba(0, 0, 0, 0.64);
+  /* Текст и иконки */
+  --color-fg: var(--neutral-25);
+  --color-fg-secondary: var(--neutral-300);
+  --color-fg-tertiary: var(--neutral-400);
+  --color-fg-disabled: var(--neutral-600);
+  --color-fg-inverse: var(--neutral-950);
+  --color-fg-link: var(--blue-400);
+  --color-fg-danger: var(--red-400);
+  --color-fg-success: var(--green-400);
+  --color-fg-warning: var(--amber-400);
+  /* Границы и фокус */
+  --color-border: var(--neutral-800);
+  --color-border-strong: var(--neutral-700);
+  --color-border-control: var(--neutral-500);
+  --color-border-hover: var(--neutral-600);
+  --color-ring: var(--blue-400);
+  /* Состояния */
+  --color-bg-disabled: var(--neutral-800);
+  --color-border-disabled: var(--neutral-800);
+  --color-bg-selected: var(--blue-950);
+  --color-fg-selected: var(--blue-300);
+  /* Контролы */
+  --color-control: var(--neutral-800);
+  --color-control-hover: var(--neutral-700);
+  --color-control-active: var(--neutral-900);
+  --color-control-on-subtle: var(--neutral-800);
+  --color-control-on-subtle-hover: var(--neutral-700);
+  /* Primary */
+  --color-primary: var(--blue-600);
+  --color-primary-hover: var(--blue-700);
+  --color-primary-active: var(--blue-800);
+  --color-primary-fg: var(--neutral-0);
+  --color-primary-subtle: var(--blue-950);
+  --color-primary-subtle-hover: var(--blue-900);
+  --color-primary-subtle-fg: var(--blue-400);
+  --color-primary-border: var(--blue-800);
+  /* Secondary */
+  --color-secondary: var(--neutral-800);
+  --color-secondary-hover: var(--neutral-700);
+  --color-secondary-active: var(--neutral-600);
+  --color-secondary-fg: var(--neutral-25);
+  /* Success */
+  --color-success: var(--green-700);
+  --color-success-hover: var(--green-800);
+  --color-success-fg: var(--neutral-0);
+  --color-success-subtle: var(--green-950);
+  --color-success-subtle-fg: var(--green-400);
+  --color-success-border: var(--green-800);
+  /* Warning */
+  --color-warning: var(--amber-400);
+  --color-warning-hover: var(--amber-300);
+  --color-warning-fg: var(--neutral-950);
+  --color-warning-subtle: var(--amber-950);
+  --color-warning-subtle-fg: var(--amber-400);
+  --color-warning-border: var(--amber-800);
+  /* Danger */
+  --color-danger: var(--red-600);
+  --color-danger-hover: var(--red-700);
+  --color-danger-fg: var(--neutral-0);
+  --color-danger-subtle: var(--red-950);
+  --color-danger-subtle-fg: var(--red-400);
+  --color-danger-border: var(--red-800);
+  /* Info */
+  --color-info: var(--blue-600);
+  --color-info-hover: var(--blue-700);
+  --color-info-fg: var(--neutral-0);
+  --color-info-subtle: var(--blue-950);
+  --color-info-subtle-fg: var(--blue-400);
+  --color-info-border: var(--blue-800);
+  /* Accent */
+  --color-accent: var(--violet-600);
+  --color-accent-fg: var(--neutral-0);
+  --color-accent-subtle: var(--violet-950);
+  --color-accent-subtle-fg: var(--violet-400);
+}
+/* </generated> */
+
+/* ==========================================================================
+   Типографика по ролям
+   ========================================================================== */
+.cs-display, .cs-h1, .cs-h2, .cs-h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg);
+}
+.cs-display { font-size: var(--text-4xl); line-height: var(--leading-4xl); letter-spacing: -0.01em; }
+.cs-h1 { font-size: var(--text-3xl); line-height: var(--leading-3xl); }
+.cs-h2 { font-size: var(--text-2xl); line-height: var(--leading-2xl); }
+.cs-h3 { font-size: var(--text-xl); line-height: var(--leading-xl); }
+.cs-h4 { margin: 0; font-family: var(--font-sans); font-size: var(--text-md); line-height: var(--leading-md); font-weight: var(--font-weight-semibold); color: var(--color-fg); }
+.cs-body-lg { font-family: var(--font-sans); font-size: var(--text-md); line-height: var(--leading-md); }
+.cs-body { font-family: var(--font-sans); font-size: var(--text-sm); line-height: var(--leading-sm); }
+.cs-body-sm { font-family: var(--font-sans); font-size: var(--text-xs); line-height: var(--leading-xs); }
+.cs-label { font-family: var(--font-sans); font-size: var(--text-sm); line-height: var(--leading-sm); font-weight: var(--font-weight-medium); }
+.cs-caption { font-family: var(--font-sans); font-size: var(--text-xs); line-height: var(--leading-xs); color: var(--color-fg-secondary); }
+.cs-code { font-family: var(--font-mono); font-size: 0.92em; }

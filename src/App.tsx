@@ -1,13 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { IconChevronLeft, IconChevronRight, IconSearch, IconX } from "@/components/ui/icons";
+import { IconBars, IconChevronLeft, IconChevronRight, IconMoon, IconSun, IconX } from "@/components/ui/icons";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Tabs } from "@/components/ui/tabs";
+import { Search } from "@/components/ui/search";
 import { components, FIGMA_FILE, flatNav, nav } from "@/docs/config";
 import { go, useRoute } from "@/docs/router";
-import { ComponentPage, InstallationPage, IntroPage } from "@/docs/pages";
-import { ColorsPage, EffectsPage, IconsPage, SpacingPage, TypographyPage } from "@/docs/foundations";
+import { ComponentPage, FigmaIcon, InstallationPage, IntroPage, PrinciplesPage } from "@/docs/pages";
+import { ColorsPage, EffectsPage, IconsPage, SpacingPage, TokensPage, TypographyPage } from "@/docs/foundations";
 
 function Page({ route }: { route: string }) {
   if (route === "") return <IntroPage />;
   if (route === "installation") return <InstallationPage />;
+  if (route === "principles") return <PrinciplesPage />;
+  if (route === "foundations/tokens") return <TokensPage />;
   if (route === "foundations/colors") return <ColorsPage />;
   if (route === "foundations/typography") return <TypographyPage />;
   if (route === "foundations/spacing") return <SpacingPage />;
@@ -41,7 +46,7 @@ function Toc({ route }: { route: string }) {
         const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0]) setActive(visible[0].target.id);
       },
-      { rootMargin: "-80px 0px -70% 0px" },
+      { rootMargin: "-40px 0px -70% 0px" },
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -69,75 +74,161 @@ function Toc({ route }: { route: string }) {
 
 /* ------------------------------------------------------------------ */
 
-function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [q, setQ] = useState("");
-  const [index, setIndex] = useState(0);
-  const listRef = useRef<HTMLDivElement>(null);
+type Theme = "light" | "dark";
 
-  const results = useMemo(() => {
-    const all = nav.flatMap((g) => g.items.map((i) => ({ ...i, group: g.title })));
-    if (!q) return all;
-    const query = q.toLowerCase();
-    return all.filter((i) => {
-      const c = components.find((x) => `components/${x.slug}` === i.slug);
-      return i.title.toLowerCase().includes(query) || c?.description.toLowerCase().includes(query) || i.group.toLowerCase().includes(query);
-    });
-  }, [q]);
-
-  useEffect(() => {
-    if (open) {
-      setQ("");
-      setIndex(0);
+function useTheme() {
+  const [theme, setTheme] = useState<Theme>(() => {
+    try {
+      const saved = localStorage.getItem("cs-theme");
+      if (saved === "light" || saved === "dark") return saved;
+    } catch {
+      /* storage недоступен */
     }
-  }, [open]);
-  useEffect(() => setIndex(0), [q]);
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
   useEffect(() => {
-    listRef.current?.querySelector<HTMLElement>("[data-active]")?.scrollIntoView({ block: "nearest" });
-  }, [index]);
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("cs-theme", theme);
+    } catch {
+      /* storage недоступен */
+    }
+  }, [theme]);
+  return [theme, setTheme] as const;
+}
 
-  if (!open) return null;
-  const pick = (slug: string) => {
-    go(slug);
-    onClose();
-  };
+function DocsSidebar({
+  route,
+  open,
+  theme,
+  onThemeChange,
+}: {
+  route: string;
+  open: boolean;
+  theme: Theme;
+  onThemeChange: (t: Theme) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Ctrl/⌘ + K — фокус на поиске
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const groups = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return nav;
+    return nav
+      .map((g) => ({
+        ...g,
+        items: g.items.filter((i) => {
+          const c = components.find((x) => `components/${x.slug}` === i.slug);
+          return (
+            i.title.toLowerCase().includes(q) ||
+            g.title.toLowerCase().includes(q) ||
+            c?.description.toLowerCase().includes(q)
+          );
+        }),
+      }))
+      .filter((g) => g.items.length > 0);
+  }, [query]);
+
+  const first = groups[0]?.items[0];
+  const navRef = useRef<HTMLElement>(null);
+
+  // Держим активный пункт в видимой части списка
+  useEffect(() => {
+    navRef.current?.querySelector<HTMLElement>(".docs-nav-item--active")?.scrollIntoView({ block: "nearest" });
+  }, [route]);
+
+  // Градиент у краёв списка, когда за ними есть скрытые пункты
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const update = () => {
+      el.toggleAttribute("data-fade-top", el.scrollTop > 1);
+      el.toggleAttribute("data-fade-bottom", el.scrollTop + el.clientHeight < el.scrollHeight - 1);
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, [groups]);
 
   return (
-    <div className="docs-search-overlay" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="docs-search" role="dialog" aria-label="Поиск по документации">
-        <div className="docs-search__input">
-          <IconSearch size={16} />
-          <input
-            autoFocus
-            placeholder="Поиск компонентов…"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowDown") (e.preventDefault(), setIndex((i) => Math.min(i + 1, results.length - 1)));
-              if (e.key === "ArrowUp") (e.preventDefault(), setIndex((i) => Math.max(i - 1, 0)));
-              if (e.key === "Enter" && results[index]) pick(results[index].slug);
-              if (e.key === "Escape") onClose();
-            }}
-          />
-          <kbd>Esc</kbd>
-        </div>
-        <div className="docs-search__list" ref={listRef}>
-          {results.length === 0 && <p className="docs-search__empty">Ничего не найдено</p>}
-          {results.map((r, i) => (
-            <button
-              key={r.slug}
-              type="button"
-              data-active={i === index || undefined}
-              className="docs-search__item"
-              onMouseEnter={() => setIndex(i)}
-              onClick={() => pick(r.slug)}
-            >
-              <span>{r.title}</span>
-              <small>{r.group}</small>
-            </button>
-          ))}
-        </div>
+    <aside className={open ? "docs-sidebar docs-sidebar--open" : "docs-sidebar"}>
+      <a className="docs-brand" href="#/">
+        <span className="docs-brand__name">Consyst UI</span>
+      </a>
+
+      <Search
+        ref={searchRef}
+        size="sm"
+        placeholder="Поиск компонентов"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onClear={() => setQuery("")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && first) {
+            go(first.slug);
+            setQuery("");
+            searchRef.current?.blur();
+          }
+          if (e.key === "Escape") setQuery("");
+        }}
+      />
+
+      <nav ref={navRef} className="docs-sidebar__nav">
+        {groups.map((g) => (
+          <div key={g.title} className="docs-nav-group">
+            <p className="docs-nav-group__title">{g.title}</p>
+            {g.items.map((it) => (
+              <a
+                key={it.slug}
+                href={`#/${it.slug}`}
+                className={route === it.slug ? "docs-nav-item docs-nav-item--active" : "docs-nav-item"}
+                aria-current={route === it.slug ? "page" : undefined}
+              >
+                {it.title}
+                {it.badge && <span className="docs-nav-item__badge">new</span>}
+              </a>
+            ))}
+          </div>
+        ))}
+        {groups.length === 0 && <p className="docs-nav-empty">Ничего не найдено</p>}
+      </nav>
+
+      <div className="docs-sidebar__footer">
+        <Tabs
+          variant="pill"
+          size="sm"
+          fullWidth
+          aria-label="Тема"
+          value={theme}
+          onValueChange={(v) => onThemeChange(v as Theme)}
+          items={[
+            { value: "light", label: <><IconSun size={12} /> Светлая</> },
+            { value: "dark", label: <><IconMoon size={12} /> Тёмная</> },
+          ]}
+        />
+        <a className="docs-figma-btn" href={FIGMA_FILE} target="_blank" rel="noreferrer">
+          <FigmaIcon size={16} />
+          Открыть в Figma
+        </a>
       </div>
-    </div>
+    </aside>
   );
 }
 
@@ -146,19 +237,9 @@ function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void })
 export default function App() {
   const route = useRoute();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [theme, setTheme] = useTheme();
 
   useEffect(() => setMenuOpen(false), [route]);
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setSearchOpen((o) => !o);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
   const current = flatNav.findIndex((i) => i.slug === route);
   const prev = current > 0 ? flatNav[current - 1] : null;
@@ -169,95 +250,45 @@ export default function App() {
   }, [title, route]);
 
   return (
+    <TooltipProvider>
     <div className="docs">
-      <header className="docs-topbar">
-        <div className="docs-topbar__inner">
-          <button type="button" className="docs-burger" aria-label="Меню" onClick={() => setMenuOpen((o) => !o)}>
-            {menuOpen ? <IconX size={18} /> : <BurgerIcon />}
-          </button>
-          <a className="docs-logo" href="#/">
-            Consyst UI
-          </a>
-          <nav className="docs-topnav">
-            <a href="#/installation" className={route === "installation" ? "is-active" : undefined}>
-              Документация
-            </a>
-            <a href="#/components/button" className={route.startsWith("components") ? "is-active" : undefined}>
-              Компоненты
-            </a>
-            <a href="#/foundations/colors" className={route.startsWith("foundations") ? "is-active" : undefined}>
-              Основы
-            </a>
-          </nav>
-          <div className="docs-topbar__right">
-            <button type="button" className="docs-search-trigger" onClick={() => setSearchOpen(true)}>
-              <IconSearch size={14} />
-              <span>Поиск…</span>
-              <kbd>Ctrl K</kbd>
-            </button>
-            <a className="docs-topbar__figma" href={FIGMA_FILE} target="_blank" rel="noreferrer">
-              Figma
-            </a>
-          </div>
-        </div>
+      <header className="docs-mobilebar">
+        <button type="button" className="docs-burger" aria-label="Меню" onClick={() => setMenuOpen((o) => !o)}>
+          {menuOpen ? <IconX /> : <IconBars />}
+        </button>
+        <a href="#/" className="docs-mobilebar__logo">
+          Consyst UI
+        </a>
       </header>
 
-      <div className="docs-body">
-        <aside className={menuOpen ? "docs-sidebar docs-sidebar--open" : "docs-sidebar"}>
-          <div className="docs-sidebar__scroll">
-            {nav.map((g) => (
-              <div key={g.title} className="docs-nav-group">
-                <p className="docs-nav-group__title">{g.title}</p>
-                {g.items.map((it) => (
-                  <a
-                    key={it.slug}
-                    href={`#/${it.slug}`}
-                    className={route === it.slug ? "docs-nav-item docs-nav-item--active" : "docs-nav-item"}
-                  >
-                    {it.title}
-                  </a>
-                ))}
-              </div>
-            ))}
-          </div>
-        </aside>
-        {menuOpen && <div className="docs-scrim" onClick={() => setMenuOpen(false)} />}
+      <DocsSidebar route={route} open={menuOpen} theme={theme} onThemeChange={setTheme} />
+      {menuOpen && <div className="docs-scrim" onClick={() => setMenuOpen(false)} />}
 
-        <main className="docs-main">
-          <article className="docs-article">
-            <Page route={route} />
-            {(prev || next) && (
-              <div className="docs-pager">
-                {prev ? (
-                  <a className="docs-pager__link" href={`#/${prev.slug}`}>
-                    <IconChevronLeft size={14} />
-                    {prev.title}
-                  </a>
-                ) : (
-                  <span />
-                )}
-                {next && (
-                  <a className="docs-pager__link docs-pager__link--next" href={`#/${next.slug}`}>
-                    {next.title}
-                    <IconChevronRight size={14} />
-                  </a>
-                )}
-              </div>
-            )}
-          </article>
-          <Toc route={route} />
-        </main>
-      </div>
-
-      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <main className="docs-main">
+        <article className="docs-article">
+          <Page route={route} />
+          {(prev || next) && (
+            <div className="docs-pager">
+              {prev ? (
+                <a className="docs-pager__link" href={`#/${prev.slug}`}>
+                  <IconChevronLeft size={12} />
+                  {prev.title}
+                </a>
+              ) : (
+                <span />
+              )}
+              {next && (
+                <a className="docs-pager__link docs-pager__link--next" href={`#/${next.slug}`}>
+                  {next.title}
+                  <IconChevronRight size={12} />
+                </a>
+              )}
+            </div>
+          )}
+        </article>
+        <Toc route={route} />
+      </main>
     </div>
-  );
-}
-
-function BurgerIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M4 7h16M4 12h16M4 17h16" />
-    </svg>
+    </TooltipProvider>
   );
 }

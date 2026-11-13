@@ -5,9 +5,9 @@ import "./approval.css";
 export type ApprovalStatus = "neutral" | "returned" | "approved";
 
 const markerIcons: Record<ApprovalStatus, React.ReactNode> = {
-  neutral: <IconGraduation size={10} />,
-  returned: <IconRotate size={10} strokeWidth={2.5} />,
-  approved: <IconCircleCheck size={10} strokeWidth={2.5} />,
+  neutral: <IconGraduation />,
+  returned: <IconRotate />,
+  approved: <IconCircleCheck />,
 };
 
 /** Иконка события: neutral — действие практиканта, returned — возврат, approved — согласование */
@@ -42,8 +42,10 @@ export function ApprovalEvent({ status = "neutral", title, date, comment, connec
         {connector && <span className="cs-approval-event__line" />}
       </div>
       <div className="cs-approval-event__body">
-        <div className="cs-approval-event__title">{title}</div>
-        <div className="cs-approval-event__date">{date}</div>
+        <div className="cs-approval-event__text">
+          <span className="cs-approval-event__title">{title}</span>
+          <span className="cs-approval-event__date">{date}</span>
+        </div>
         {comment && <ApprovalComment author={comment.author}>{comment.text}</ApprovalComment>}
       </div>
     </div>
@@ -58,7 +60,7 @@ export interface ApprovalHistoryProps {
   className?: string;
 }
 
-export function ApprovalHistory({ title = "Ход согласования", events, height = 360, className }: ApprovalHistoryProps) {
+export function ApprovalHistory({ title = "Ход согласования", events, height = 560, className }: ApprovalHistoryProps) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const el = scrollRef.current;

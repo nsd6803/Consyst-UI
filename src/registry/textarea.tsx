@@ -1,66 +1,77 @@
 import * as React from "react";
-import "./input.css";
+import { FloatingLabel, useFieldControl, useFloatingLabel } from "./field";
+import { cn } from "./utils";
+import "./control.css";
 import "./textarea.css";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-  /** Показывать счётчик символов (нужен maxLength) */
+  /** Плавающая подпись внутри поля (внутри <Field> берётся из его label) */
+  label?: React.ReactNode;
+  /** Счётчик символов (нужен maxLength) */
   showCount?: boolean;
+  /** Высота подстраивается под текст (до maxRows) */
+  autoResize?: boolean;
+  maxRows?: number;
+  invalid?: boolean;
   containerClassName?: string;
 }
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    { label, error, showCount = true, maxLength = 256, containerClassName, className, disabled, id, value, defaultValue, onChange, rows = 4, ...props },
+    { label, showCount = false, autoResize = false, maxRows = 10, invalid, containerClassName, className, rows = 4, value, defaultValue, onChange, maxLength, ...props },
     ref,
   ) => {
-    const autoId = React.useId();
-    const fieldId = id ?? autoId;
+    const field = useFieldControl({ ...props, invalid });
+    const float = useFloatingLabel(label);
+    const innerRef = React.useRef<HTMLTextAreaElement>(null);
+    React.useImperativeHandle(ref, () => innerRef.current as HTMLTextAreaElement);
     const [inner, setInner] = React.useState(String(defaultValue ?? ""));
     const current = value !== undefined ? String(value) : inner;
 
+    React.useLayoutEffect(() => {
+      const el = innerRef.current;
+      if (!autoResize || !el) return;
+      el.style.height = "auto";
+      const lh = parseFloat(getComputedStyle(el).lineHeight) || 20;
+      el.style.height = `${Math.min(el.scrollHeight, lh * maxRows + 16)}px`;
+    }, [current, autoResize, maxRows]);
+
     return (
-      <div className={["cs-field-wrap", containerClassName].filter(Boolean).join(" ")}>
-        <div
-          className={[
-            "cs-field",
-            "cs-textarea",
-            error && "cs-field--error",
-            disabled && "cs-field--disabled",
-            current.length > 0 && "cs-field--filled",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          <textarea
-            ref={ref}
-            id={fieldId}
-            rows={rows}
-            maxLength={maxLength}
-            placeholder=" "
-            disabled={disabled}
-            aria-invalid={!!error || undefined}
-            className={["cs-field__control", "cs-textarea__control", className].filter(Boolean).join(" ")}
-            value={current}
-            onChange={(e) => {
-              setInner(e.target.value);
-              onChange?.(e);
-            }}
-            {...props}
-          />
-          {label && (
-            <label htmlFor={fieldId} className="cs-field__label">
-              {label}
-            </label>
-          )}
-          {showCount && (
-            <span className="cs-textarea__count">
-              {current.length}/{maxLength}
-            </span>
-          )}
+      <div
+        className={cn("cs-control", "cs-textarea", float.floating && "cs-control--floating", containerClassName)}
+        data-filled={current.length > 0 || undefined}
+        data-invalid={field.invalid || undefined}
+        data-disabled={field.disabled || undefined}
+      >
+        <div className="cs-control__float">
+        <textarea
+          ref={innerRef}
+          rows={rows}
+          maxLength={maxLength}
+          className={cn("cs-control__input", "cs-textarea__input", autoResize && "cs-textarea__input--auto", className)}
+          value={current}
+          onChange={(e) => {
+            setInner(e.target.value);
+            onChange?.(e);
+          }}
+          {...props}
+          id={field.id}
+          disabled={field.disabled}
+          required={field.required}
+          aria-invalid={field["aria-invalid"]}
+          aria-describedby={field["aria-describedby"]}
+        />
+        {float.floating && (
+          <FloatingLabel htmlFor={field.id} required={field.required ?? float.required}>
+            {float.label}
+          </FloatingLabel>
+        )}
         </div>
-        {error && <p className="cs-field__error">{error}</p>}
+        {showCount && maxLength !== undefined && (
+          <span className="cs-textarea__count" aria-live="polite">
+            {current.length} / {maxLength}
+          </span>
+        )}
       </div>
     );
   },

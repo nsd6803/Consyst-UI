@@ -4,25 +4,32 @@ import { Toaster, toast } from "@/components/ui/toast";
 export default function ToastDemo() {
   return (
     <>
-      {/* <Toaster /> достаточно положить один раз в корень приложения */}
+      {/* <Toaster /> кладётся один раз в корень приложения */}
       <Toaster />
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <Button
-          size="small"
-          color="success"
-          onClick={() => toast({ type: "success", title: "Отчёт отправлен", description: "Наставник получит уведомление." })}
+          variant="soft"
+          onClick={() => toast({ tone: "success", title: "Отчёт отправлен", description: "Наставник получит уведомление" })}
         >
           Success
         </Button>
         <Button
-          size="small"
-          color="error"
-          onClick={() => toast({ type: "error", title: "Ошибка загрузки", description: "Файл больше 10 МБ." })}
+          variant="soft"
+          onClick={() =>
+            toast({
+              tone: "info",
+              title: "Практикант удалён из группы",
+              action: { label: "Отменить", onClick: () => toast({ tone: "success", title: "Действие отменено" }) },
+            })
+          }
         >
-          Error
+          С действием
         </Button>
-        <Button size="small" variant="secondary" onClick={() => toast({ type: "info", title: "Новая версия плана" })}>
-          Info
+        <Button variant="soft" onClick={() => toast({ tone: "danger", title: "Ошибка загрузки", description: "Файл больше 10 МБ" })}>
+          Danger
+        </Button>
+        <Button variant="soft" onClick={() => toast({ tone: "warning", title: "Сессия скоро истечёт", duration: 0 })}>
+          Без автоскрытия
         </Button>
       </div>
     </>

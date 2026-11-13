@@ -1,0 +1,847 @@
+{
+  "pairs": [
+    {
+      "fg": "fg",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 18.96,
+      "dark": 18.15
+    },
+    {
+      "fg": "fg",
+      "bg": "bg-subtle",
+      "min": 4.5,
+      "light": 16.82,
+      "dark": 16.19
+    },
+    {
+      "fg": "fg",
+      "bg": "bg-muted",
+      "min": 4.5,
+      "light": 15.64,
+      "dark": 13.36
+    },
+    {
+      "fg": "fg",
+      "bg": "surface-raised",
+      "min": 4.5,
+      "light": 18.96,
+      "dark": 13.36
+    },
+    {
+      "fg": "fg-secondary",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 5.48,
+      "dark": 11.06
+    },
+    {
+      "fg": "fg-secondary",
+      "bg": "bg-subtle",
+      "min": 4.5,
+      "light": 4.86,
+      "dark": 9.87
+    },
+    {
+      "fg": "fg-secondary",
+      "bg": "bg-muted",
+      "min": 4.5,
+      "light": 4.52,
+      "dark": 8.14
+    },
+    {
+      "fg": "fg-tertiary",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 4.54,
+      "dark": 8.34
+    },
+    {
+      "fg": "fg-tertiary",
+      "bg": "bg-subtle",
+      "min": 3,
+      "light": 4.02,
+      "dark": 7.44
+    },
+    {
+      "fg": "fg-link",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 5.25,
+      "dark": 7.19
+    },
+    {
+      "fg": "fg-selected",
+      "bg": "bg-selected",
+      "min": 4.5,
+      "light": 6.28,
+      "dark": 8.15
+    },
+    {
+      "fg": "primary-fg",
+      "bg": "primary",
+      "min": 4.5,
+      "light": 5.25,
+      "dark": 5.25
+    },
+    {
+      "fg": "primary-fg",
+      "bg": "primary-hover",
+      "min": 4.5,
+      "light": 6.83,
+      "dark": 6.83
+    },
+    {
+      "fg": "primary-subtle-fg",
+      "bg": "primary-subtle",
+      "min": 4.5,
+      "light": 4.82,
+      "dark": 5.6
+    },
+    {
+      "fg": "primary",
+      "bg": "bg",
+      "min": 3,
+      "light": 5.25,
+      "dark": 3.61
+    },
+    {
+      "fg": "secondary-fg",
+      "bg": "secondary",
+      "min": 4.5,
+      "light": 16.82,
+      "dark": 13.36
+    },
+    {
+      "fg": "success-fg",
+      "bg": "success",
+      "min": 4.5,
+      "light": 4.95,
+      "dark": 4.95
+    },
+    {
+      "fg": "success-subtle-fg",
+      "bg": "success-subtle",
+      "min": 4.5,
+      "light": 4.72,
+      "dark": 8.38
+    },
+    {
+      "fg": "warning-fg",
+      "bg": "warning",
+      "min": 4.5,
+      "light": 11.08,
+      "dark": 11.08
+    },
+    {
+      "fg": "warning-subtle-fg",
+      "bg": "warning-subtle",
+      "min": 4.5,
+      "light": 4.85,
+      "dark": 8.77
+    },
+    {
+      "fg": "danger-fg",
+      "bg": "danger",
+      "min": 4.5,
+      "light": 4.77,
+      "dark": 4.77
+    },
+    {
+      "fg": "danger-fg",
+      "bg": "danger-hover",
+      "min": 4.5,
+      "light": 6.42,
+      "dark": 6.42
+    },
+    {
+      "fg": "danger-subtle-fg",
+      "bg": "danger-subtle",
+      "min": 4.5,
+      "light": 5.87,
+      "dark": 5.6
+    },
+    {
+      "fg": "info-fg",
+      "bg": "info",
+      "min": 4.5,
+      "light": 5.25,
+      "dark": 5.25
+    },
+    {
+      "fg": "info-subtle-fg",
+      "bg": "info-subtle",
+      "min": 4.5,
+      "light": 4.82,
+      "dark": 5.6
+    },
+    {
+      "fg": "accent-fg",
+      "bg": "accent",
+      "min": 4.5,
+      "light": 5.89,
+      "dark": 5.89
+    },
+    {
+      "fg": "accent-subtle-fg",
+      "bg": "accent-subtle",
+      "min": 4.5,
+      "light": 5.37,
+      "dark": 5.34
+    },
+    {
+      "fg": "ring",
+      "bg": "bg",
+      "min": 3,
+      "light": 3.76,
+      "dark": 7.19
+    },
+    {
+      "fg": "fg-danger",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 6.42,
+      "dark": 6.56
+    },
+    {
+      "fg": "fg-danger",
+      "bg": "surface-raised",
+      "min": 4.5,
+      "light": 6.42,
+      "dark": 4.83
+    },
+    {
+      "fg": "fg-success",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 4.95,
+      "dark": 10.66
+    },
+    {
+      "fg": "fg-warning",
+      "bg": "bg",
+      "min": 4.5,
+      "light": 5.03,
+      "dark": 11.08
+    },
+    {
+      "fg": "fg",
+      "bg": "control",
+      "min": 4.5,
+      "light": 16.82,
+      "dark": 13.36
+    },
+    {
+      "fg": "fg-tertiary",
+      "bg": "control",
+      "min": 3,
+      "light": 4.02,
+      "dark": 6.14
+    },
+    {
+      "fg": "fg",
+      "bg": "bg-emphasis",
+      "min": 4.5,
+      "light": 14.01,
+      "dark": 9.46
+    },
+    {
+      "fg": "border-control",
+      "bg": "bg",
+      "min": 3,
+      "light": 4.54,
+      "dark": 4.18
+    },
+    {
+      "fg": "border-control",
+      "bg": "bg-subtle",
+      "min": 3,
+      "light": 4.02,
+      "dark": 3.73
+    },
+    {
+      "fg": "fg",
+      "bg": "control-on-subtle",
+      "min": 4.5,
+      "light": 18.96,
+      "dark": 13.36
+    },
+    {
+      "fg": "fg-tertiary",
+      "bg": "control-on-subtle",
+      "min": 3,
+      "light": 4.54,
+      "dark": 6.14
+    }
+  ],
+  "tokens": {
+    "bg": {
+      "light": "neutral-0",
+      "dark": "neutral-950",
+      "lightHex": "#ffffff",
+      "darkHex": "#0f1018",
+      "note": "Фон страницы",
+      "group": "Поверхности"
+    },
+    "bg-subtle": {
+      "light": "neutral-100",
+      "dark": "neutral-900",
+      "lightHex": "#f1f1f4",
+      "darkHex": "#1b1c27",
+      "note": "Вторичный фон: сайдбар, панели, канвас, заполненные карточки",
+      "group": "Поверхности"
+    },
+    "bg-subtle-hover": {
+      "light": "neutral-50",
+      "dark": "neutral-800",
+      "lightHex": "#f5f6f9",
+      "darkHex": "#2a2b3a",
+      "note": "Наведение на карточку с заливкой bg-subtle: светлее и с тенью",
+      "group": "Поверхности"
+    },
+    "bg-muted": {
+      "light": "neutral-150",
+      "dark": "neutral-800",
+      "lightHex": "#e8e9ee",
+      "darkHex": "#2a2b3a",
+      "note": "Приглушённая заливка: hover, треки, неактивные плашки",
+      "group": "Поверхности"
+    },
+    "bg-emphasis": {
+      "light": "neutral-200",
+      "dark": "neutral-700",
+      "lightHex": "#dcdde5",
+      "darkHex": "#404254",
+      "note": "Нажатое состояние, заливка на bg-subtle",
+      "group": "Поверхности"
+    },
+    "surface": {
+      "light": "neutral-0",
+      "dark": "neutral-900",
+      "lightHex": "#ffffff",
+      "darkHex": "#1b1c27",
+      "note": "Карточки, таблицы, модалки",
+      "group": "Поверхности"
+    },
+    "surface-raised": {
+      "light": "neutral-0",
+      "dark": "neutral-800",
+      "lightHex": "#ffffff",
+      "darkHex": "#2a2b3a",
+      "note": "Поповеры, меню, тултипы, тосты",
+      "group": "Поверхности"
+    },
+    "overlay": {
+      "light": "rgba(15, 16, 24, 0.48)",
+      "dark": "rgba(0, 0, 0, 0.64)",
+      "lightHex": "rgba(15, 16, 24, 0.48)",
+      "darkHex": "rgba(0, 0, 0, 0.64)",
+      "note": "Затемнение под модалкой",
+      "group": "Поверхности"
+    },
+    "fg": {
+      "light": "neutral-950",
+      "dark": "neutral-25",
+      "lightHex": "#0f1018",
+      "darkHex": "#f9fafc",
+      "note": "Основной текст и иконки",
+      "group": "Текст и иконки"
+    },
+    "fg-secondary": {
+      "light": "neutral-600",
+      "dark": "neutral-300",
+      "lightHex": "#66687b",
+      "darkHex": "#c4c5d1",
+      "note": "Вторичный текст: описания, подписи",
+      "group": "Текст и иконки"
+    },
+    "fg-tertiary": {
+      "light": "neutral-500",
+      "dark": "neutral-400",
+      "lightHex": "#737588",
+      "darkHex": "#aaabb9",
+      "note": "Плейсхолдеры, метаданные, иконки. На белом ≥ 4.5:1, на заливке полей ≥ 3:1",
+      "group": "Текст и иконки"
+    },
+    "fg-disabled": {
+      "light": "neutral-400",
+      "dark": "neutral-600",
+      "lightHex": "#aaabb9",
+      "darkHex": "#66687b",
+      "note": "Текст недоступных элементов (контраст не нормируется)",
+      "group": "Текст и иконки"
+    },
+    "fg-inverse": {
+      "light": "neutral-0",
+      "dark": "neutral-950",
+      "lightHex": "#ffffff",
+      "darkHex": "#0f1018",
+      "note": "Текст на тёмной/инвертированной заливке",
+      "group": "Текст и иконки"
+    },
+    "fg-link": {
+      "light": "blue-600",
+      "dark": "blue-400",
+      "lightHex": "#155dfc",
+      "darkHex": "#51a2ff",
+      "note": "Ссылки",
+      "group": "Текст и иконки"
+    },
+    "fg-danger": {
+      "light": "red-700",
+      "dark": "red-400",
+      "lightHex": "#c10007",
+      "darkHex": "#ff6467",
+      "note": "Текст ошибки, обязательное поле",
+      "group": "Текст и иконки"
+    },
+    "fg-success": {
+      "light": "green-700",
+      "dark": "green-400",
+      "lightHex": "#008236",
+      "darkHex": "#05df72",
+      "note": "Текст успеха",
+      "group": "Текст и иконки"
+    },
+    "fg-warning": {
+      "light": "amber-700",
+      "dark": "amber-400",
+      "lightHex": "#bb4d00",
+      "darkHex": "#ffba00",
+      "note": "Текст предупреждения",
+      "group": "Текст и иконки"
+    },
+    "border": {
+      "light": "neutral-100",
+      "dark": "neutral-800",
+      "lightHex": "#f1f1f4",
+      "darkHex": "#2a2b3a",
+      "note": "Разделители, границы карточек",
+      "group": "Границы и фокус"
+    },
+    "border-strong": {
+      "light": "neutral-200",
+      "dark": "neutral-700",
+      "lightHex": "#dcdde5",
+      "darkHex": "#404254",
+      "note": "Границы полей ввода и контролов",
+      "group": "Границы и фокус"
+    },
+    "border-control": {
+      "light": "neutral-500",
+      "dark": "neutral-500",
+      "lightHex": "#737588",
+      "darkHex": "#737588",
+      "note": "Обводка чекбокса и радио (не меньше 3:1 к фону)",
+      "group": "Границы и фокус"
+    },
+    "border-hover": {
+      "light": "neutral-300",
+      "dark": "neutral-600",
+      "lightHex": "#c4c5d1",
+      "darkHex": "#66687b",
+      "note": "Граница при наведении",
+      "group": "Границы и фокус"
+    },
+    "ring": {
+      "light": "blue-500",
+      "dark": "blue-400",
+      "lightHex": "#2b7fff",
+      "darkHex": "#51a2ff",
+      "note": "Обводка фокуса (клавиатура)",
+      "group": "Границы и фокус"
+    },
+    "bg-disabled": {
+      "light": "neutral-100",
+      "dark": "neutral-800",
+      "lightHex": "#f1f1f4",
+      "darkHex": "#2a2b3a",
+      "note": "Заливка недоступных контролов",
+      "group": "Состояния"
+    },
+    "border-disabled": {
+      "light": "neutral-150",
+      "dark": "neutral-800",
+      "lightHex": "#e8e9ee",
+      "darkHex": "#2a2b3a",
+      "note": "Граница недоступных контролов",
+      "group": "Состояния"
+    },
+    "bg-selected": {
+      "light": "blue-50",
+      "dark": "blue-950",
+      "lightHex": "#eff6ff",
+      "darkHex": "#162456",
+      "note": "Выбранная строка / пункт",
+      "group": "Состояния"
+    },
+    "fg-selected": {
+      "light": "blue-700",
+      "dark": "blue-300",
+      "lightHex": "#1447e6",
+      "darkHex": "#8ec5ff",
+      "note": "Текст выбранного пункта",
+      "group": "Состояния"
+    },
+    "control": {
+      "light": "neutral-100",
+      "dark": "neutral-800",
+      "lightHex": "#f1f1f4",
+      "darkHex": "#2a2b3a",
+      "note": "Заливка полей ввода и select (fill-подход)",
+      "group": "Контролы"
+    },
+    "control-hover": {
+      "light": "neutral-150",
+      "dark": "neutral-700",
+      "lightHex": "#e8e9ee",
+      "darkHex": "#404254",
+      "note": "Поле при наведении",
+      "group": "Контролы"
+    },
+    "control-active": {
+      "light": "neutral-0",
+      "dark": "neutral-900",
+      "lightHex": "#ffffff",
+      "darkHex": "#1b1c27",
+      "note": "Поле в фокусе — светлеет, акцент даёт ring",
+      "group": "Контролы"
+    },
+    "control-on-subtle": {
+      "light": "neutral-0",
+      "dark": "neutral-800",
+      "lightHex": "#ffffff",
+      "darkHex": "#2a2b3a",
+      "note": "Заливка поля на панели bg-subtle (сайдбар, filled-карточка)",
+      "group": "Контролы"
+    },
+    "control-on-subtle-hover": {
+      "light": "neutral-50",
+      "dark": "neutral-700",
+      "lightHex": "#f5f6f9",
+      "darkHex": "#404254",
+      "note": "Наведение на такое поле",
+      "group": "Контролы"
+    },
+    "primary": {
+      "light": "blue-600",
+      "dark": "blue-600",
+      "lightHex": "#155dfc",
+      "darkHex": "#155dfc",
+      "note": "Главное действие, активные элементы",
+      "group": "Primary"
+    },
+    "primary-hover": {
+      "light": "blue-700",
+      "dark": "blue-700",
+      "lightHex": "#1447e6",
+      "darkHex": "#1447e6",
+      "note": "",
+      "group": "Primary"
+    },
+    "primary-active": {
+      "light": "blue-800",
+      "dark": "blue-800",
+      "lightHex": "#193cb8",
+      "darkHex": "#193cb8",
+      "note": "",
+      "group": "Primary"
+    },
+    "primary-fg": {
+      "light": "neutral-0",
+      "dark": "neutral-0",
+      "lightHex": "#ffffff",
+      "darkHex": "#ffffff",
+      "note": "Текст на primary",
+      "group": "Primary"
+    },
+    "primary-subtle": {
+      "light": "blue-50",
+      "dark": "blue-950",
+      "lightHex": "#eff6ff",
+      "darkHex": "#162456",
+      "note": "Мягкая заливка primary",
+      "group": "Primary"
+    },
+    "primary-subtle-hover": {
+      "light": "blue-100",
+      "dark": "blue-900",
+      "lightHex": "#dbeafe",
+      "darkHex": "#1c398e",
+      "note": "",
+      "group": "Primary"
+    },
+    "primary-subtle-fg": {
+      "light": "blue-600",
+      "dark": "blue-400",
+      "lightHex": "#155dfc",
+      "darkHex": "#51a2ff",
+      "note": "Текст на мягкой заливке",
+      "group": "Primary"
+    },
+    "primary-border": {
+      "light": "blue-200",
+      "dark": "blue-800",
+      "lightHex": "#bedbff",
+      "darkHex": "#193cb8",
+      "note": "",
+      "group": "Primary"
+    },
+    "secondary": {
+      "light": "neutral-100",
+      "dark": "neutral-800",
+      "lightHex": "#f1f1f4",
+      "darkHex": "#2a2b3a",
+      "note": "Второстепенное действие",
+      "group": "Secondary"
+    },
+    "secondary-hover": {
+      "light": "neutral-150",
+      "dark": "neutral-700",
+      "lightHex": "#e8e9ee",
+      "darkHex": "#404254",
+      "note": "",
+      "group": "Secondary"
+    },
+    "secondary-active": {
+      "light": "neutral-200",
+      "dark": "neutral-600",
+      "lightHex": "#dcdde5",
+      "darkHex": "#66687b",
+      "note": "",
+      "group": "Secondary"
+    },
+    "secondary-fg": {
+      "light": "neutral-950",
+      "dark": "neutral-25",
+      "lightHex": "#0f1018",
+      "darkHex": "#f9fafc",
+      "note": "",
+      "group": "Secondary"
+    },
+    "success": {
+      "light": "green-700",
+      "dark": "green-700",
+      "lightHex": "#008236",
+      "darkHex": "#008236",
+      "note": "Успех, завершено, согласовано",
+      "group": "Success"
+    },
+    "success-hover": {
+      "light": "green-800",
+      "dark": "green-800",
+      "lightHex": "#016630",
+      "darkHex": "#016630",
+      "note": "",
+      "group": "Success"
+    },
+    "success-fg": {
+      "light": "neutral-0",
+      "dark": "neutral-0",
+      "lightHex": "#ffffff",
+      "darkHex": "#ffffff",
+      "note": "",
+      "group": "Success"
+    },
+    "success-subtle": {
+      "light": "green-50",
+      "dark": "green-950",
+      "lightHex": "#f0fdf4",
+      "darkHex": "#052e16",
+      "note": "",
+      "group": "Success"
+    },
+    "success-subtle-fg": {
+      "light": "green-700",
+      "dark": "green-400",
+      "lightHex": "#008236",
+      "darkHex": "#05df72",
+      "note": "",
+      "group": "Success"
+    },
+    "success-border": {
+      "light": "green-200",
+      "dark": "green-800",
+      "lightHex": "#b9f8cf",
+      "darkHex": "#016630",
+      "note": "",
+      "group": "Success"
+    },
+    "warning": {
+      "light": "amber-400",
+      "dark": "amber-400",
+      "lightHex": "#ffba00",
+      "darkHex": "#ffba00",
+      "note": "Внимание, ожидание",
+      "group": "Warning"
+    },
+    "warning-hover": {
+      "light": "amber-500",
+      "dark": "amber-300",
+      "lightHex": "#fd9a00",
+      "darkHex": "#ffd230",
+      "note": "",
+      "group": "Warning"
+    },
+    "warning-fg": {
+      "light": "neutral-950",
+      "dark": "neutral-950",
+      "lightHex": "#0f1018",
+      "darkHex": "#0f1018",
+      "note": "На жёлтом — только тёмный текст",
+      "group": "Warning"
+    },
+    "warning-subtle": {
+      "light": "amber-50",
+      "dark": "amber-950",
+      "lightHex": "#fffbeb",
+      "darkHex": "#461901",
+      "note": "",
+      "group": "Warning"
+    },
+    "warning-subtle-fg": {
+      "light": "amber-700",
+      "dark": "amber-400",
+      "lightHex": "#bb4d00",
+      "darkHex": "#ffba00",
+      "note": "",
+      "group": "Warning"
+    },
+    "warning-border": {
+      "light": "amber-200",
+      "dark": "amber-800",
+      "lightHex": "#fee685",
+      "darkHex": "#973c00",
+      "note": "",
+      "group": "Warning"
+    },
+    "danger": {
+      "light": "red-600",
+      "dark": "red-600",
+      "lightHex": "#e7000b",
+      "darkHex": "#e7000b",
+      "note": "Ошибка, удаление, отклонено",
+      "group": "Danger"
+    },
+    "danger-hover": {
+      "light": "red-700",
+      "dark": "red-700",
+      "lightHex": "#c10007",
+      "darkHex": "#c10007",
+      "note": "",
+      "group": "Danger"
+    },
+    "danger-fg": {
+      "light": "neutral-0",
+      "dark": "neutral-0",
+      "lightHex": "#ffffff",
+      "darkHex": "#ffffff",
+      "note": "",
+      "group": "Danger"
+    },
+    "danger-subtle": {
+      "light": "red-50",
+      "dark": "red-950",
+      "lightHex": "#fef2f2",
+      "darkHex": "#460809",
+      "note": "",
+      "group": "Danger"
+    },
+    "danger-subtle-fg": {
+      "light": "red-700",
+      "dark": "red-400",
+      "lightHex": "#c10007",
+      "darkHex": "#ff6467",
+      "note": "",
+      "group": "Danger"
+    },
+    "danger-border": {
+      "light": "red-200",
+      "dark": "red-800",
+      "lightHex": "#ffc9c9",
+      "darkHex": "#9f0712",
+      "note": "",
+      "group": "Danger"
+    },
+    "info": {
+      "light": "blue-600",
+      "dark": "blue-600",
+      "lightHex": "#155dfc",
+      "darkHex": "#155dfc",
+      "note": "Информация, подсказки",
+      "group": "Info"
+    },
+    "info-hover": {
+      "light": "blue-700",
+      "dark": "blue-700",
+      "lightHex": "#1447e6",
+      "darkHex": "#1447e6",
+      "note": "",
+      "group": "Info"
+    },
+    "info-fg": {
+      "light": "neutral-0",
+      "dark": "neutral-0",
+      "lightHex": "#ffffff",
+      "darkHex": "#ffffff",
+      "note": "",
+      "group": "Info"
+    },
+    "info-subtle": {
+      "light": "blue-50",
+      "dark": "blue-950",
+      "lightHex": "#eff6ff",
+      "darkHex": "#162456",
+      "note": "",
+      "group": "Info"
+    },
+    "info-subtle-fg": {
+      "light": "blue-600",
+      "dark": "blue-400",
+      "lightHex": "#155dfc",
+      "darkHex": "#51a2ff",
+      "note": "",
+      "group": "Info"
+    },
+    "info-border": {
+      "light": "blue-200",
+      "dark": "blue-800",
+      "lightHex": "#bedbff",
+      "darkHex": "#193cb8",
+      "note": "",
+      "group": "Info"
+    },
+    "accent": {
+      "light": "violet-600",
+      "dark": "violet-600",
+      "lightHex": "#7f22fe",
+      "darkHex": "#7f22fe",
+      "note": "Акценты, выделение, бейджи «новое»",
+      "group": "Accent"
+    },
+    "accent-fg": {
+      "light": "neutral-0",
+      "dark": "neutral-0",
+      "lightHex": "#ffffff",
+      "darkHex": "#ffffff",
+      "note": "",
+      "group": "Accent"
+    },
+    "accent-subtle": {
+      "light": "violet-50",
+      "dark": "violet-950",
+      "lightHex": "#f5f3ff",
+      "darkHex": "#2f0d68",
+      "note": "",
+      "group": "Accent"
+    },
+    "accent-subtle-fg": {
+      "light": "violet-600",
+      "dark": "violet-400",
+      "lightHex": "#7f22fe",
+      "darkHex": "#a684ff",
+      "note": "",
+      "group": "Accent"
+    }
+  }
+}

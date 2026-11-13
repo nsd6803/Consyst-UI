@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { IconDownload } from "@/components/ui/icons";
+import { IconDownload, IconPlus } from "@/components/ui/icons";
 
 export default function ButtonDemo() {
   return (
-    <Button leftIcon={<IconDownload />} onClick={() => alert("Скачиваем отчёт")}>
-      Скачать отчёт
-    </Button>
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+      <Button leftIcon={<IconPlus />}>Добавить практиканта</Button>
+      <Button variant="soft" leftIcon={<IconDownload />}>
+        Скачать отчёт
+      </Button>
+    </div>
   );
 }

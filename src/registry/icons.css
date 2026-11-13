@@ -1,0 +1,24 @@
+.cs-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  font-family: var(--font-icon);
+  font-size: var(--icon-size-md);
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  speak: never;
+}
+.cs-icon--spin {
+  animation: cs-icon-spin 0.9s linear infinite;
+}
+@keyframes cs-icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

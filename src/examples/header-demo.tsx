@@ -1,32 +1,33 @@
 import { Header, HeaderAction, HeaderLink } from "@/components/ui/header";
-import { IconFile, IconGraduation, IconUser } from "@/components/ui/icons";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { IconFileXls, IconGear, IconUserPlus } from "@/components/ui/icons";
 
 export default function HeaderDemo() {
   return (
     <div style={{ display: "grid", gap: 16, width: "100%" }}>
-      <Header userName="Мария" hasNotifications />
+      {/* ФИО и роль — только в меню под аватаром */}
+      <Header userName="Афанасьева Мария" userRole="Наставник" notifications={3} />
       <Header
-        userName="Мария"
+        userName="Иванов Пётр"
+        userRole="Кадровый администратор"
+        userMenu={<DropdownMenuItem icon={<IconGear />}>Настройки</DropdownMenuItem>}
         actions={
           <>
             <HeaderAction aria-label="Создать отчёт .xls">
-              <IconFile size={16} />
-            </HeaderAction>
-            <HeaderAction aria-label="Загрузить резюме">
-              <IconGraduation size={16} />
+              <IconFileXls />
             </HeaderAction>
             <HeaderAction aria-label="Добавить наставника">
-              <IconUser size={16} />
+              <IconUserPlus />
             </HeaderAction>
           </>
         }
       />
       <Header
-        userName="Мария"
+        userName="Иванов Пётр"
+        userRole="Кадровый администратор"
         actions={
           <>
             <HeaderLink>Создать отчёт .xls</HeaderLink>
-            <HeaderLink>Загрузить резюме</HeaderLink>
             <HeaderLink>Добавить наставника</HeaderLink>
           </>
         }
