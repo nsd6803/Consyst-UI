@@ -448,9 +448,8 @@ export function InstallationPage() {
       <Steps>
         <Step title="Шрифты в public/fonts">
           <p className="docs-p">
-            Заголовки — Rosatom (<Code>Rosatom-Bold.otf</Code> и др.), текст — Inter, иконки — Font Awesome 7 Pro Solid (
-            <Code>fa-solid-900.otf</Code>, переименованный <Code>Font Awesome 7 Pro-Solid-900.otf</Code>). Font Awesome Pro —
-            лицензионный: не коммитьте его в публичные репозитории.
+            Заголовки — Rosatom (<Code>Rosatom-Bold.otf</Code> и др.), текст — Inter. Иконки векторные и лежат в{" "}
+            <Code>icons.tsx</Code> — шрифт для них не нужен.
           </p>
           <div className="docs-actions-row">
             {["Light", "Regular", "Italic", "Bold"].map((w) => (

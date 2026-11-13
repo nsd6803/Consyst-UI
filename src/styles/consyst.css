@@ -1,6 +1,6 @@
 /* ==========================================================================
    Consyst UI — дизайн-токены «ПроДвижение»
-   Подключите один раз в корне приложения. Шрифты Rosatom и Font Awesome — в /public/fonts.
+   Подключите один раз в корне приложения. Шрифт Rosatom — в /public/fonts. Иконки векторные (icons.tsx), шрифт для них не нужен.
    Слои: примитивы → семантика (light/dark) → токены компонентов (в CSS компонентов).
    ========================================================================== */
 
@@ -33,16 +33,6 @@
   font-display: swap;
 }
 
-/* Font Awesome 7 Pro (Solid) — иконки. Лицензионный шрифт: положите файл в /public/fonts
-   (в публичный репозиторий не коммитить). */
-@font-face {
-  font-family: "Font Awesome 7 Pro";
-  src: url("/fonts/fa-solid-900.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: block;
-}
-
 /* ==========================================================================
    Токены (static): типографика, отступы, размеры, радиусы, тени, движение
    ========================================================================== */
@@ -51,7 +41,6 @@
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: "Rosatom", "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-icon: "Font Awesome 7 Pro";
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;

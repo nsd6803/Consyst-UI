@@ -11,7 +11,7 @@ npm run tokens   # пересобрать цвета из JSON и провери
 npm run build    # статическая сборка в dist/
 ```
 
-Шрифт иконок Font Awesome 7 Pro (`public/fonts/fa-solid-900.otf`) лицензионный и в репозиторий не входит — положите его сами.
+Иконки — векторные SVG из Font Awesome Free Solid ([CC BY 4.0](https://fontawesome.com/license/free)), шрифт для них не нужен. Пути в `src/registry/icons.tsx` генерирует `npm run icons`.
 
 ## Структура
 

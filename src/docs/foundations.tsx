@@ -538,7 +538,7 @@ export function IconsPage() {
       <PageHeader
         eyebrow="Основы"
         title="Иконки"
-        description="Font Awesome 7 Pro Solid — шрифтовые иконки. Цвет наследуется от текста, размер внутри контролов задаёт сам контрол. Клик копирует JSX."
+        description="Font Awesome Solid — векторные SVG-иконки: шрифт не нужен, на телефоне отображаются так же. Цвет наследуется от текста, размер внутри контролов задаёт сам контрол. Клик копирует JSX."
         figma="12531:2608"
       />
       <div style={{ maxWidth: 320, marginBottom: 16 }}>
@@ -571,7 +571,10 @@ export function IconsPage() {
 <IconSearch />                          // декоративная — скрыта от скринридера
 <IconSearch label="Поиск" />            // смысловая — озвучивается
 <IconSpinner spin />                    // вращение
-<Icon glyph={"\\u{f015}"} />            // любая иконка Font Awesome по коду`}
+
+// любая другая иконка Font Awesome Free
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+<Icon icon={faHouse} />`}
       />
       <p className="docs-p">
         Иконка без текста рядом — например, кнопка-иконка — обязательно получает <Code>aria-label</Code> на кнопке.
